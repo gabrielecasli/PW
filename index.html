@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gabriele Caslini | AI & MLOps Engineer</title>
+  <meta name="description" content="Portfolio of Gabriele Caslini — AI & MLOps Engineer specializing in Deep Learning, Automation Systems, and Computer Vision.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- AOS - Animate On Scroll -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================
+       HEADER / NAVBAR
+       ============================================ -->
+  <header class="navbar" id="navbar">
+    <div class="navbar__container">
+      <a href="#hero" class="navbar__logo">G.C.</a>
+
+      <nav class="navbar__menu" id="navMenu">
+        <a href="#about" class="navbar__link">About</a>
+        <a href="#background" class="navbar__link">Background</a>
+        <a href="#projects" class="navbar__link">Projects</a>
+        <a href="#coursework" class="navbar__link">Coursework</a>
+        <a href="#contact" class="navbar__link">Contact</a>
+      </nav>
+
+      <!-- Mobile hamburger -->
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+
+  <!-- ============================================
+       HERO SECTION
+       ============================================ -->
+  <section class="hero" id="hero">
+    <div class="hero__content" data-aos="fade-up" data-aos-duration="1000">
+      <p class="hero__greeting">Hi, I'm</p>
+      <h1 class="hero__name">Gabriele Caslini</h1>
+      <p class="hero__role">AI & MLOps Engineer | Automation Systems</p>
+      <a href="#about" class="hero__cta">Learn more</a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero__scroll-indicator">
+      <div class="hero__scroll-arrow"></div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       ABOUT
+       ============================================ -->
+  <section class="section about" id="about">
+    <div class="container">
+      <h2 class="section__title" data-aos="fade-up">About Me</h2>
+
+      <div class="about__grid">
+        <!-- Photo column -->
+        <div class="about__photo-wrapper" data-aos="fade-right" data-aos-delay="200">
+          <!-- PLACEHOLDER: Replace with personal profile photo -->
+          <img src="placeholder.jpg" alt="Profile photo of Gabriele Caslini" class="about__photo">
+        </div>
+
+        <!-- Bio column -->
+        <div class="about__text" data-aos="fade-left" data-aos-delay="300">
+          <p>
+            I am an automation engineer with a deep passion for artificial intelligence
+            and autonomous systems. I graduated Cum Laude from both my Bachelor's and
+            Master's degrees in Automation and Control Engineering at Politecnico di Milano,
+            with international experience at TU Delft in the Netherlands and T&eacute;l&eacute;com Paris.
+          </p>
+          <p>
+            I am driven by building reliable, high-impact intelligent systems at the
+            intersection of modern deep learning, AI, and automation. My main interests
+            lie in modern machine learning methods, AI architectures, and robotics.
+          </p>
+          <p>
+            I am convinced that AI will reshape how we work, move, learn, and make decisions,
+            and that the people who understand how to develop and deploy it responsibly
+            will define the next decade.
+          </p>
+
+          <!-- Skills pills -->
+          <div class="about__skills">
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">C++</span>
+            <span class="skill-pill">PyTorch</span>
+            <span class="skill-pill">Transformers</span>
+            <span class="skill-pill">Computer Vision</span>
+            <span class="skill-pill">ROS</span>
+            <span class="skill-pill">Docker</span>
+            <span class="skill-pill">CI/CD</span>
+            <span class="skill-pill">Git</span>
+            <span class="skill-pill">Slurm</span>
+            <span class="skill-pill">MATLAB/Simulink</span>
+            <span class="skill-pill">Linux</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       BACKGROUND / TIMELINE
+       ============================================ -->
+  <section class="section background" id="background">
+    <div class="container">
+      <h2 class="section__title" data-aos="fade-up">Background</h2>
+
+      <div class="timeline">
+
+        <!-- --- EXPERIENCE --- -->
+        <div class="timeline__block" data-aos="fade-up" data-aos-delay="100">
+          <div class="timeline__marker timeline__marker--work"></div>
+          <div class="timeline__content">
+            <span class="timeline__badge timeline__badge--work">Experience</span>
+            <span class="timeline__date">Mar 2025 &mdash; Dec 2025</span>
+            <h3 class="timeline__title">Deep Learning Engineer | MLOps</h3>
+            <h4 class="timeline__subtitle">AIDA &mdash; Artificial Intelligence Driving Autonomous &middot; Master Thesis</h4>
+            <p>
+              Deployed a unified multimodal sensor fusion pipeline for automatic HD map
+              generation. Designed, trained, and deployed traffic sign recognition models
+              to improve perception robustness and support autonomous vehicle planning.
+            </p>
+            <p class="timeline__highlight">
+              97.5% recall over 14 km of real-world testing on Italian roads.
+            </p>
+            <p class="timeline__highlight">
+              Upcoming publication: <em>Camera-LiDAR Fusion for Traffic Sign and Road Marking
+              Extraction for Autonomous Driving</em> (Feb 2026, CCTA).
+            </p>
+            <div class="timeline__tags">
+              <span>CI/CD</span><span>MLOps</span><span>Slurm</span><span>Docker</span>
+              <span>ROS</span><span>Deep Learning</span><span>Computer Vision</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__block" data-aos="fade-up" data-aos-delay="100">
+          <div class="timeline__marker timeline__marker--work"></div>
+          <div class="timeline__content">
+            <span class="timeline__badge timeline__badge--work">Experience</span>
+            <span class="timeline__date">Oct 2024 &mdash; Mar 2025</span>
+            <h3 class="timeline__title">Deep Learning Engineer</h3>
+            <h4 class="timeline__subtitle">Epoch V &middot; Delft, NL</h4>
+            <p>
+              MIT Challenge &ldquo;Goodnight Moon: Hello Early Literacy Screening&rdquo;.
+              Developed ML models to automatically score children's literacy screener
+              audio using ASR, transformers, and contrastive learning.
+            </p>
+            <p class="timeline__highlight">
+              Ranked 8th out of 399 teams in an international competition, helping
+              enable faster early intervention in education.
+            </p>
+            <div class="timeline__tags">
+              <span>Whisper</span><span>HuggingFace</span><span>Wandb</span>
+              <span>PyTorch</span><span>Audio Processing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline__block" data-aos="fade-up" data-aos-delay="100">
+          <div class="timeline__marker timeline__marker--work"></div>
+          <div class="timeline__content">
+            <span class="timeline__badge timeline__badge--work">Experience</span>
+            <span class="timeline__date">Sep 2023 &mdash; Jul 2024</span>
+            <h3 class="timeline__title">Software & Hardware Engineer</h3>
+            <h4 class="timeline__subtitle">Polimi Sailing Team &middot; Milan</h4>
+            <p>
+              Designed and integrated the boat's electronic architecture, automated
+              height control for stable foil flight system, sensor fusion, and
+              embedded control logic.
+            </p>
+            <p class="timeline__highlight">
+              1st place at SuMoth Challenge 2024.
+            </p>
+            <div class="timeline__tags">
+              <span>Real Time Control</span><span>Sensor Fusion</span><span>CAN Bus</span>
+              <span>PCB</span><span>Embedded Systems</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- --- EDUCATION --- -->
+        <div class="timeline__block" data-aos="fade-up" data-aos-delay="100">
+          <div class="timeline__marker timeline__marker--edu"></div>
+          <div class="timeline__content">
+            <span class="timeline__badge timeline__badge--edu">Education</span>
+            <span class="timeline__date">Sep 2023 &mdash; Dec 2025</span>
+            <h3 class="timeline__title">Master of Science in Automation and Control Engineering</h3>
+            <h4 class="timeline__subtitle">Politecnico di Milano</h4>
+            <p>
+              GPA: 29.6/30 &middot; Final Score: 110 Cum Laude.<br>
+              Focus: statistical modeling, ML, optimization, systems robustness and safety.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline__block" data-aos="fade-up" data-aos-delay="100">
+          <div class="timeline__marker timeline__marker--edu"></div>
+          <div class="timeline__content">
+            <span class="timeline__badge timeline__badge--edu">Education</span>
+            <span class="timeline__date">Nov 2024</span>
+            <h3 class="timeline__title">Practice in Deep Learning Course</h3>
+            <h4 class="timeline__subtitle">Athens, T&eacute;l&eacute;com Paris</h4>
+            <p>
+              Focus: Transformers, CNN, RNN, PyTorch, Keras.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline__block" data-aos="fade-up" data-aos-delay="100">
+          <div class="timeline__marker timeline__marker--edu"></div>
+          <div class="timeline__content">
+            <span class="timeline__badge timeline__badge--edu">Education</span>
+            <span class="timeline__date">Aug 2024 &mdash; Mar 2025</span>
+            <h3 class="timeline__title">Erasmus Exchange</h3>
+            <h4 class="timeline__subtitle">TU Delft, Netherlands &middot; Computer Science Faculty</h4>
+            <p>
+              Exchange semester at the Computer Science Faculty of TU Delft.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline__block" data-aos="fade-up" data-aos-delay="100">
+          <div class="timeline__marker timeline__marker--edu"></div>
+          <div class="timeline__content">
+            <span class="timeline__badge timeline__badge--edu">Education</span>
+            <span class="timeline__date">Sep 2020 &mdash; Jul 2023</span>
+            <h3 class="timeline__title">Bachelor of Science in Automation and Control Engineering</h3>
+            <h4 class="timeline__subtitle">Politecnico di Milano</h4>
+            <p>
+              GPA: 29.4/30 &middot; Final Score: 110 Cum Laude.
+            </p>
+          </div>
+        </div>
+
+      </div><!-- /.timeline -->
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       PROJECTS
+       ============================================ -->
+  <section class="section projects" id="projects">
+    <div class="container">
+      <h2 class="section__title" data-aos="fade-up">Projects</h2>
+
+      <div class="projects__grid">
+
+        <!-- PROJECT CARD 1: Master Thesis - AIDA -->
+        <article class="project-card" data-aos="fade-up" data-aos-delay="100" data-project="aida">
+          <div class="project-card__media">
+            <!-- PLACEHOLDER: Replace with AIDA pipeline demo video/image -->
+            <video src="placeholder_aida_demo.mp4" class="project-card__video" autoplay muted loop playsinline></video>
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Camera-LiDAR Fusion for HD Map Generation</h3>
+            <p class="project-card__description">
+              Offline camera-LiDAR fusion pipeline that automatically detects traffic signs
+              and road markings, estimates their 3D pose, and annotates HD maps for
+              autonomous vehicles. Achieved 97.5% recall over 14 km of real Italian roads.
+            </p>
+            <div class="project-card__tags">
+              <span>Python</span><span>PyTorch</span><span>YOLOv11</span><span>ROS</span>
+              <span>Docker</span><span>Slurm</span><span>LiDAR</span><span>Computer Vision</span>
+            </div>
+            <button class="project-card__toggle" aria-expanded="false">
+              Read more
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+
+          <!-- EXPANDABLE DETAIL SECTION -->
+          <div class="project-detail" id="detail-aida">
+            <div class="project-detail__inner">
+              <div class="project-detail__section">
+                <h4>Overview</h4>
+                <p>
+                  This Master Thesis project, carried out within the AIDA (Artificial Intelligence
+                  Driving Autonomous) research group at Politecnico di Milano, tackles the challenge
+                  of automatically generating regulation-aware HD maps for autonomous driving in
+                  urban environments. The core problem: autonomous vehicles depend on pre-constructed
+                  HD maps for localization and planning, but manually annotating traffic regulations
+                  is slow and error-prone.
+                </p>
+              </div>
+
+              <div class="project-detail__section">
+                <h4>Pipeline Architecture</h4>
+                <p>The system is composed of four main stages that process recorded drives:</p>
+                <ul>
+                  <li>
+                    <strong>Detection:</strong> A YOLOv11-M detector, trained on a custom dataset
+                    of 20,930 images (34,000+ annotations) spanning 31 traffic sign classes.
+                    Hyperparameters were optimized via Bayesian Optimization (20 runs, 30 epochs each)
+                    targeting mAP50-95. Training achieved mAP50 of 0.917, Recall of 0.841, Precision of 0.923.
+                  </li>
+                  <li>
+                    <strong>Tracking:</strong> BoT-SORT multi-object tracker with appearance
+                    re-identification and global motion compensation. A custom multi-camera mosaic
+                    approach fuses detections from 3 cameras with a selection layer to avoid duplicates.
+                  </li>
+                  <li>
+                    <strong>3D Localization & Pose Estimation:</strong> LiDAR points are projected
+                    onto camera frames and filtered per bounding box. Background point removal via
+                    statistical filtering, followed by 3D pose estimation (normal vector extraction)
+                    for vertical signs and side refinement with ROI extraction for horizontal markings.
+                  </li>
+                  <li>
+                    <strong>HD Map Route Annotation:</strong> Detected signs are converted into
+                    regulatory Special Nodes (stop, yield, crosswalk, speed limit) placed at precise
+                    distances along the vehicle's route with a hierarchical fallback system that
+                    prioritizes horizontal markings over vertical signs.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="project-detail__section">
+                <h4>Results</h4>
+                <p>
+                  Validated on 14 km of Italian roads. Recall ranges from 93% to 100% across classes.
+                  In the fallback configuration, only 3 missed events out of 161 and 13 false positives.
+                  Processing time: 5 minutes per kilometer.
+                </p>
+                <p>
+                  <strong>Upcoming publication:</strong> <em>Camera-LiDAR Fusion for Traffic Sign
+                  and Road Marking Extraction for Autonomous Driving</em> (Feb 2026, CCTA).
+                </p>
+              </div>
+
+              <div class="project-detail__gallery">
+                <!-- PLACEHOLDER: Replace with pipeline diagram/screenshot -->
+                <img src="placeholder_aida_pipeline.jpg" alt="AIDA pipeline architecture diagram" class="project-detail__gallery-full">
+                <!-- PLACEHOLDER: Replace with detection results image -->
+                <img src="placeholder_aida_results.jpg" alt="AIDA detection results on Italian roads" class="project-detail__gallery-full">
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT CARD 2: MIT Challenge - Epoch V -->
+        <article class="project-card" data-aos="fade-up" data-aos-delay="200" data-project="epochv">
+          <div class="project-card__media">
+            <!-- PLACEHOLDER: Replace with Epoch V project image/screenshot -->
+            <img src="placeholder_epochv.jpg" alt="Epoch V - Early Literacy Screening" class="project-card__image">
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">Goodnight Moon: Early Literacy Screening</h3>
+            <p class="project-card__description">
+              Custom Transformer scoring model built on Whisper embeddings with interleaved
+              self/cross-attention for automated children's literacy assessment.
+              Ranked 8th out of 399 teams in the MIT &ldquo;Goodnight Moon&rdquo; challenge.
+            </p>
+            <div class="project-card__tags">
+              <span>Python</span><span>PyTorch</span><span>Whisper</span>
+              <span>Wav2Vec2</span><span>HuggingFace</span><span>Wandb</span><span>ASR</span>
+            </div>
+            <button class="project-card__toggle" aria-expanded="false">
+              Read more
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+
+          <!-- EXPANDABLE DETAIL SECTION -->
+          <div class="project-detail" id="detail-epochv">
+            <div class="project-detail__inner">
+              <div class="project-detail__section">
+                <h4>Overview</h4>
+                <p>
+                  The &ldquo;Goodnight Moon&rdquo; challenge, organized by
+                  <em>Reach Every Reader</em> (Harvard, MIT &amp; Florida State University),
+                  asks teams to build ML models that automatically score children's early
+                  literacy assessments from audio recordings. Children's speech introduces
+                  greater acoustic variability due to smaller vocal tracts and unpredictable
+                  pronunciations, making standard ASR systems unreliable. Accurate automated
+                  scoring enables faster early intervention for students who may benefit from
+                  additional literacy support.
+                </p>
+              </div>
+
+              <div class="project-detail__section">
+                <h4>Approach</h4>
+                <ul>
+                  <li>
+                    <strong>Main model &mdash; Whisper Transformer:</strong> A custom encoder-decoder
+                    Transformer that takes the expected text (character-level tokenizer, 40-token vocab)
+                    and pre-computed Whisper-base audio embeddings as inputs. Four interleaved
+                    self-attention / cross-attention layers (S-C-S-C pattern) progressively fuse
+                    text and audio representations. A learnable CLS token aggregates the final
+                    sequence into a single vector, fed through a LayerNorm + MLP head to predict
+                    a score in [0,&thinsp;1]. Training uses AdamW with linear warmup + cosine decay,
+                    EMA weight averaging (decay &asymp; 0.983), and Bayesian hyperparameter search via W&amp;B.
+                  </li>
+                  <li>
+                    <strong>Contrastive model:</strong> Dual-branch architecture
+                    (Wav2Vec2 for audio, FastText for text) projecting both modalities into a shared
+                    256-d space and scoring via cosine similarity.
+                  </li>
+                  <li>
+                    <strong>Phonetic Transformer:</strong> Variant replacing continuous Whisper
+                    embeddings with discrete phoneme tokens, enabling a symbolic text-vs-phoneme
+                    comparison through a shared embedding space.
+                  </li>
+                  <li>
+                    <strong>Experiment tracking:</strong> Full lifecycle managed with
+                    Weights &amp; Biases sweeps and HuggingFace model hub.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="project-detail__section">
+                <h4>Results</h4>
+                <p>
+                  The team ranked <strong>8th out of 399 teams</strong> in the international competition,
+                  contributing to making automated early literacy screening more accessible and scalable.
+                  The project was carried out with Epoch V during the Erasmus exchange at TU Delft.
+                </p>
+              </div>
+
+              <div class="project-detail__gallery">
+                <!-- PLACEHOLDER: Replace with model architecture diagram -->
+                <img src="placeholder_epochv_arch.jpg" alt="Epoch V model architecture" class="project-detail__gallery-full">
+                <!-- PLACEHOLDER: Replace with competition leaderboard screenshot -->
+                <img src="placeholder_epochv_results.jpg" alt="MIT Challenge leaderboard results">
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT CARD 3: Polimi Sailing Team -->
+        <article class="project-card" data-aos="fade-up" data-aos-delay="300" data-project="sailing">
+          <div class="project-card__media">
+            <!-- PLACEHOLDER: Replace with Polimi Sailing Team boat photo/video -->
+            <img src="placeholder_sailing.jpg" alt="Polimi Sailing Team - SuMoth Challenge" class="project-card__image">
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">SuMoth Challenge 2024 &mdash; Polimi Sailing Team</h3>
+            <p class="project-card__description">
+              Full electronic architecture design for a moth-class sailing boat with automated
+              height control for stable foil flight, sensor fusion, and embedded control logic.
+              The team won 1st place at SuMoth Challenge 2024.
+            </p>
+            <div class="project-card__tags">
+              <span>C++</span><span>ROS</span><span>MATLAB/Simulink</span>
+              <span>CAN Bus</span><span>Sensor Fusion</span><span>Embedded</span>
+            </div>
+            <button class="project-card__toggle" aria-expanded="false">
+              Read more
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+
+          <!-- EXPANDABLE DETAIL SECTION -->
+          <div class="project-detail" id="detail-sailing">
+            <div class="project-detail__inner">
+              <div class="project-detail__section">
+                <h4>Overview</h4>
+                <p>
+                  The Polimi Sailing Team is Politecnico di Milano's competitive sailing team
+                  that designs and builds high-performance moth-class sailboats. The moth is a
+                  single-handed foiling dinghy that lifts entirely out of the water on hydrofoils,
+                  requiring precise real-time control to maintain stable flight.
+                </p>
+              </div>
+
+              <div class="project-detail__section">
+                <h4>Technical Contribution</h4>
+                <ul>
+                  <li>
+                    <strong>Electronic Architecture:</strong> Designed and integrated the entire
+                    onboard electronic system from scratch, including distributed sensor nodes
+                    and communication infrastructure.
+                  </li>
+                  <li>
+                    <strong>Automated Height Control:</strong> Developed the real-time control
+                    algorithm for stable foil flight, managing ride height and pitch stability
+                    at high speeds.
+                  </li>
+                  <li>
+                    <strong>Sensor Fusion:</strong> Implemented multi-sensor data fusion for
+                    accurate state estimation, combining inertial measurements, height sensors,
+                    and speed data.
+                  </li>
+                  <li>
+                    <strong>CAN Bus & Embedded:</strong> Built a CAN bus network for
+                    communication between distributed nodes, handled PCB integration,
+                    debugging, and waterproofing of all electronics.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="project-detail__section">
+                <h4>Results</h4>
+                <p>
+                  The team achieved <strong>1st place at the SuMoth Challenge 2024</strong>,
+                  a competitive event where university teams race self-designed moth sailboats.
+                  The electronic control system was a key differentiator for the team's
+                  performance.
+                </p>
+              </div>
+
+              <div class="project-detail__gallery">
+                <!-- PLACEHOLDER: Replace with boat/foil flight photo -->
+                <img src="placeholder_sailing_boat.jpg" alt="Polimi Sailing Team moth boat in action" class="project-detail__gallery-full">
+                <!-- PLACEHOLDER: Replace with electronics/PCB photo -->
+                <img src="placeholder_sailing_electronics.jpg" alt="Onboard electronic architecture" class="project-detail__gallery-full">
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /.projects__grid -->
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       COURSEWORK
+       ============================================ -->
+  <section class="section coursework" id="coursework">
+    <div class="container">
+      <h2 class="section__title" data-aos="fade-up">Coursework</h2>
+
+      <div class="projects__grid">
+
+        <!-- COURSEWORK CARD 1: Rotary Inverted Pendulum -->
+        <article class="project-card project-card--text-only" data-aos="fade-up" data-aos-delay="100" data-project="pendulum">
+          <div class="project-card__body">
+            <h3 class="project-card__title">Rotary Inverted Pendulum Control</h3>
+            <p class="project-card__description">
+              Full control design for a rotary inverted pendulum: from Euler&ndash;Lagrange modeling
+              and parameter identification to frequency-based controllers, state-space stabilization,
+              and energy-based swing-up. Our team&rsquo;s code was featured in the
+              <a href="https://youtu.be/dGXzSk8y08I" target="_blank" rel="noopener noreferrer" class="project-card__inline-link">official promotional video</a>
+              of the MSc in Automation and Control Engineering.
+            </p>
+            <p class="project-card__subtitle">Automation and Control Laboratory &middot; Politecnico di Milano &middot; 2025</p>
+            <div class="project-card__tags">
+              <span>MATLAB</span><span>Simulink</span><span>Control Theory</span>
+              <span>State-Space</span><span>Loop Shaping</span><span>LQG</span><span>Real-Time</span>
+            </div>
+            <button class="project-card__toggle" aria-expanded="false">
+              Read more
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+
+          <!-- EXPANDABLE DETAIL SECTION -->
+          <div class="project-detail" id="detail-pendulum">
+            <div class="project-detail__inner">
+              <div class="project-detail__section">
+                <h4>Overview</h4>
+                <p>
+                  The rotary inverted pendulum is a classic nonlinear, underactuated mechanical system
+                  with an intrinsically unstable upright equilibrium. The physical setup consists of a
+                  Quanser SRV02 base unit driven by a DC servo motor, with angular positions measured
+                  by two optical encoders and controlled via MATLAB/Simulink through a DAQ board.
+                  The lab project was carried out in a team of four as part of the Automation and
+                  Control Laboratory course at Politecnico di Milano.
+                </p>
+              </div>
+
+              <div class="project-detail__section">
+                <h4>Approach</h4>
+                <ul>
+                  <li>
+                    <strong>Modeling:</strong> Derived the equations of motion via Euler&ndash;Lagrange
+                    formulation, including DC motor dynamics. Identified physical parameters and friction
+                    coefficients from experimental data. Validated the model in both time and frequency domains.
+                  </li>
+                  <li>
+                    <strong>Frequency-based control:</strong> Designed P, PI, and loop-shaped controllers
+                    for horizontal arm position tracking. Loop shaping eliminated hunting motion caused
+                    by stick-slip friction and achieved fast rise time with no actuator saturation.
+                  </li>
+                  <li>
+                    <strong>State observers:</strong> Implemented and compared a Luenberger observer,
+                    linear Kalman Filter, and Extended Kalman Filter for velocity estimation. The
+                    Luenberger observer was selected for its simplicity and robust performance.
+                  </li>
+                  <li>
+                    <strong>State-space control:</strong> Designed Pole Placement and LQG controllers
+                    for pendulum stabilization in the upright position, then extended to simultaneous
+                    reference tracking with an LQI (LQG + integral action) controller.
+                  </li>
+                  <li>
+                    <strong>Swing-up:</strong> Implemented an energy-based nonlinear swing-up strategy
+                    managed by a finite state machine that transitions to the LQR stabilizer once the
+                    pendulum reaches the upright region. Successfully demonstrated on the real system
+                    with disturbance rejection.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="project-detail__section">
+                <h4>Results</h4>
+                <p>
+                  All controllers successfully stabilized the pendulum and tracked reference signals.
+                  The swing-up achieved steady state within 4 seconds on the real hardware. The
+                  team&rsquo;s code and results were selected for the
+                  <a href="https://youtu.be/dGXzSk8y08I" target="_blank" rel="noopener noreferrer" class="project-card__inline-link">promotional video</a>
+                  of the MSc in Automation and Control Engineering at Politecnico di Milano.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- COURSEWORK CARD 2: Numerical Analysis Assignment -->
+        <article class="project-card project-card--text-only" data-aos="fade-up" data-aos-delay="200" data-project="schnakenberg">
+          <div class="project-card__body">
+            <h3 class="project-card__title">Solving the 2D Schnakenberg Reaction-Diffusion System</h3>
+            <p class="project-card__description">
+              Numerical solution of the coupled Schnakenberg PDE system on a 2D domain with Neumann
+              boundary conditions. Compared explicit Forward Euler and implicit Backward Euler with
+              Newton&ndash;Raphson, including stability analysis and empirical convergence bounds.
+              The simulation produces Turing patterns from random initial perturbations.
+            </p>
+            <p class="project-card__subtitle">Numerical Analysis &middot; TU Delft &middot; Jan 2025</p>
+            <div class="project-card__tags">
+              <span>Python</span><span>NumPy</span><span>SciPy</span>
+              <span>PDEs</span><span>Finite Differences</span><span>Newton&ndash;Raphson</span>
+            </div>
+            <button class="project-card__toggle" aria-expanded="false">
+              Read more
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+
+          <!-- EXPANDABLE DETAIL SECTION -->
+          <div class="project-detail" id="detail-schnakenberg">
+            <div class="project-detail__inner">
+              <div class="project-detail__section">
+                <h4>Overview</h4>
+                <p>
+                  The Schnakenberg system is a two-species reaction-diffusion model that, for suitable
+                  parameters, exhibits Turing instabilities: starting from a nearly uniform initial
+                  condition with small random perturbations, the solution evolves into stable spatial
+                  patterns. The assignment required solving this coupled PDE system numerically on the
+                  square domain [0,&thinsp;4]&sup2; with zero Neumann boundary conditions, using two
+                  different time-integration strategies.
+                </p>
+              </div>
+
+              <div class="project-detail__section">
+                <h4>Methods</h4>
+                <ul>
+                  <li>
+                    <strong>Spatial discretization:</strong> Constructed the 2D negative-Laplacian
+                    matrix with Neumann BCs via Kronecker products of 1D operators, ensuring symmetry
+                    through boundary equation multipliers.
+                  </li>
+                  <li>
+                    <strong>Forward Euler (explicit):</strong> Conditionally stable &mdash; derived
+                    the maximum time step via Jacobian eigenvalue analysis and Gerschgorin bounds.
+                    Required &sim;50,130 steps on a 100&times;100 grid (CPU time &approx; 9.3 s).
+                  </li>
+                  <li>
+                    <strong>Backward Euler + Newton&ndash;Raphson (implicit):</strong> Unconditionally
+                    stable &mdash; each time step requires solving a nonlinear system via Newton iterations
+                    with a block-Jacobian matrix. Converged in only 346 steps on the same grid
+                    (CPU time &approx; 84 s), with &sim;3 Newton iterations per step.
+                  </li>
+                  <li>
+                    <strong>Stability analysis:</strong> Full linearization around the trivial
+                    steady state, Jacobian block structure, eigenvalue negativity proof, and
+                    Gerschgorin-based upper bound for the Forward Euler time step.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="project-detail__section">
+                <h4>Results</h4>
+                <p>
+                  Both methods correctly produce Turing patterns from the perturbed initial condition.
+                  Forward Euler is cheaper per step but its conditional stability forces very small
+                  time increments. Backward Euler&ndash;Newton&ndash;Raphson takes far fewer steps
+                  at the cost of solving a large sparse linear system at each iteration, making it
+                  more attractive for stiffer problems or longer simulations.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /.projects__grid -->
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       FOOTER / CONTACT
+       ============================================ -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <h2 class="section__title section__title--light" data-aos="fade-up">Contact</h2>
+
+      <div class="footer__content" data-aos="fade-up" data-aos-delay="200">
+        <p class="footer__text">
+          Interested in working together or just want to chat? Drop me a line.
+        </p>
+
+        <div class="footer__links">
+          <a href="mailto:gabrielecasli@gmail.com" class="footer__link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            gabrielecasli@gmail.com
+          </a>
+
+          <a href="www.linkedin.com/in/gabriele-caslini-57482b245" target="_blank" rel="noopener noreferrer" class="footer__link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+
+          <a href="tel:+393516298878" class="footer__link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +39 351 629 8878
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; 2026 Gabriele Caslini. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- AOS Library -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- Main Script -->
+  <script src="script.js"></script>
+</body>
+</html>
