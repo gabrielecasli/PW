@@ -343,7 +343,7 @@ video {
 
 .timeline__marker {
   position: absolute;
-  left: -2.5rem;
+  left: calc(-1.9rem - 6px);
   top: 0.35rem;
   width: 14px;
   height: 14px;
@@ -846,7 +846,7 @@ video {
   }
 
   .timeline__marker {
-    left: -2rem;
+    left: calc(-1.4rem - 6px);
   }
 
   .timeline__content {
