@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Master Thesis | Multi-Modal Annotation for Autonomous Driving | Gabriele Caslini</title>
+ <meta name="description" content="Master Thesis and CCTA 2026 paper by Gabriele Caslini automated Camera–LiDAR fusion pipeline for HD map annotation in autonomous driving.">
+
+ <!-- Google Fonts -->
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+ <!-- AOS -->
+ <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+ <!-- Base stylesheet -->
+ <link rel="stylesheet" href="style.css">
+
+ <style>
+ /* ============================================================
+ THESIS PAGE EXTENDED STYLES
+ ============================================================ */
+
+ /* --- Hero --- */
+ .thesis-hero {
+ min-height: 100vh;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ padding: 7rem 1.5rem 4rem;
+ position: relative;
+ background: linear-gradient(160deg, #FAFAFA 60%, #F0F0F0 100%);
+ }
+
+ .thesis-hero__eyebrow {
+ display: inline-flex;
+ align-items: center;
+ gap: 0.5rem;
+ font-size: 0.72rem;
+ font-weight: 600;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: #888;
+ background-color: #F3F4F6;
+ border: 1px solid #E5E7EB;
+ border-radius: 50px;
+ padding: 0.3rem 0.9rem;
+ margin-bottom: 1.5rem;
+ }
+
+ .thesis-hero__title {
+ font-size: clamp(1.75rem, 4.5vw, 3.2rem);
+ font-weight: 700;
+ color: #1A1A1A;
+ letter-spacing: -0.03em;
+ line-height: 1.15;
+ max-width: 820px;
+ margin-bottom: 1.25rem;
+ }
+
+ .thesis-hero__title em {
+ font-style: normal;
+ color: #555;
+ }
+
+ .thesis-hero__subtitle {
+ font-size: 1rem;
+ color: #666;
+ margin: 0 auto 2.5rem;
+ max-width: 600px;
+ text-align: center;
+ }
+
+ .thesis-hero__meta {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 1rem 2rem;
+ margin-bottom: 2.5rem;
+ }
+
+ .thesis-hero__meta-item {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 0.15rem;
+ }
+
+ .thesis-hero__meta-label {
+ font-size: 0.7rem;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: #AAA;
+ }
+
+ .thesis-hero__meta-value {
+ font-size: 0.88rem;
+ font-weight: 500;
+ color: #333;
+ }
+
+ .thesis-hero__actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 1rem;
+ justify-content: center;
+ }
+
+ .thesis-hero__notice {
+ font-size: 0.8rem;
+ color: #777;
+ background: #F3F4F6;
+ border: 1px solid #E5E7EB;
+ border-radius: 8px;
+ padding: 0.55rem 1.1rem;
+ margin: 0 auto 2rem;
+ max-width: 640px;
+ text-align: center;
+ line-height: 1.6;
+ }
+
+ .btn {
+ display: inline-flex;
+ align-items: center;
+ gap: 0.45rem;
+ padding: 0.8rem 1.8rem;
+ border-radius: 50px;
+ font-size: 0.88rem;
+ font-weight: 600;
+ letter-spacing: 0.02em;
+ transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+ cursor: pointer;
+ text-decoration: none;
+ }
+
+ .btn--primary {
+ background-color: #1A1A1A;
+ color: #FAFAFA;
+ border: 2px solid #1A1A1A;
+ }
+
+ .btn--primary:hover {
+ background-color: #333;
+ color: #FAFAFA;
+ box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+ }
+
+ .btn--outline {
+ background-color: transparent;
+ color: #1A1A1A;
+ border: 2px solid #1A1A1A;
+ }
+
+ .btn--outline:hover {
+ background-color: #1A1A1A;
+ color: #FAFAFA;
+ }
+
+ /* --- Section alternates --- */
+ .section--alt {
+ background-color: #fff;
+ }
+
+ /* --- Stat row --- */
+ .stats-row {
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+ gap: 1.5rem;
+ margin-top: 3rem;
+ }
+
+ .stat-card {
+ background-color: #FAFAFA;
+ border: 1px solid #ECECEC;
+ border-radius: 12px;
+ padding: 1.75rem 1.25rem;
+ text-align: center;
+ transition: box-shadow 0.3s ease;
+ }
+
+ .stat-card:hover {
+ box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+ }
+
+ .stat-card__value {
+ font-size: 2.2rem;
+ font-weight: 700;
+ color: #1A1A1A;
+ letter-spacing: -0.03em;
+ line-height: 1.1;
+ margin-bottom: 0.4rem;
+ }
+
+ .stat-card__label {
+ font-size: 0.78rem;
+ font-weight: 500;
+ color: #888;
+ line-height: 1.4;
+ }
+
+ /* --- Context / motivation two-col --- */
+ .two-col {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 3rem;
+ align-items: start;
+ }
+
+ .two-col--wide {
+ grid-template-columns: 1.1fr 0.9fr;
+ }
+
+ .content-block h3 {
+ font-size: 1.3rem;
+ font-weight: 700;
+ color: #1A1A1A;
+ letter-spacing: -0.02em;
+ margin-bottom: 1rem;
+ }
+
+ .content-block p {
+ font-size: 0.9rem;
+ color: #555;
+ line-height: 1.8;
+ margin-bottom: 0.9rem;
+ }
+
+ .content-block ul {
+ list-style: none;
+ padding: 0;
+ margin: 0;
+ }
+
+ .content-block li {
+ position: relative;
+ font-size: 0.9rem;
+ color: #555;
+ line-height: 1.75;
+ padding-left: 1.3rem;
+ margin-bottom: 0.6rem;
+ }
+
+ .content-block li::before {
+ content: '';
+ position: absolute;
+ left: 0;
+ top: 0.65rem;
+ width: 6px;
+ height: 6px;
+ background-color: #1A1A1A;
+ border-radius: 50%;
+ }
+
+ .content-block li strong {
+ color: #1A1A1A;
+ }
+
+ /* Highlight box */
+ .highlight-box {
+ background-color: #1A1A1A;
+ color: #FAFAFA;
+ border-radius: 12px;
+ padding: 1.75rem;
+ margin-top: 1.5rem;
+ }
+
+ .highlight-box p {
+ font-size: 0.88rem;
+ color: #D1D5DB;
+ line-height: 1.75;
+ margin-bottom: 0.5rem;
+ }
+
+ .highlight-box p:last-child { margin-bottom: 0; }
+
+ .highlight-box strong {
+ color: #FAFAFA;
+ }
+
+ /* --- Pipeline flow --- */
+ .pipeline-flow {
+ display: flex;
+ align-items: stretch;
+ gap: 0;
+ margin: 3rem 0;
+ overflow-x: auto;
+ padding-bottom: 0.5rem;
+ }
+
+ .pipeline-stage {
+ flex: 1;
+ min-width: 160px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ position: relative;
+ }
+
+ .pipeline-stage + .pipeline-stage::before {
+ content: '';
+ position: absolute;
+ left: -1px;
+ top: 28px;
+ width: 20px;
+ height: 2px;
+ background-color: #D0D0D0;
+ }
+
+ .pipeline-stage__icon {
+ width: 56px;
+ height: 56px;
+ border-radius: 50%;
+ background-color: #1A1A1A;
+ color: #FAFAFA;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 1.3rem;
+ font-weight: 700;
+ margin-bottom: 1rem;
+ flex-shrink: 0;
+ position: relative;
+ z-index: 1;
+ }
+
+
+ .pipeline-stage__card {
+ background-color: #FAFAFA;
+ border: 1px solid #ECECEC;
+ border-radius: 10px;
+ padding: 1.25rem;
+ text-align: center;
+ width: 100%;
+ transition: box-shadow 0.3s ease;
+ }
+
+ .pipeline-stage__card:hover {
+ box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+ }
+
+ .pipeline-stage__number {
+ font-size: 0.68rem;
+ font-weight: 700;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: #AAA;
+ margin-bottom: 0.4rem;
+ }
+
+ .pipeline-stage__title {
+ font-size: 0.95rem;
+ font-weight: 700;
+ color: #1A1A1A;
+ margin-bottom: 0.5rem;
+ }
+
+ .pipeline-stage__desc {
+ font-size: 0.78rem;
+ color: #777;
+ line-height: 1.6;
+ }
+
+ /* --- Detail section cards --- */
+ .detail-section {
+ margin-bottom: 4rem;
+ }
+
+ .detail-section:last-child {
+ margin-bottom: 0;
+ }
+
+ .detail-section__header {
+ display: flex;
+ align-items: center;
+ gap: 1rem;
+ margin-bottom: 2rem;
+ }
+
+ .detail-section__badge {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ width: 36px;
+ height: 36px;
+ border-radius: 8px;
+ background-color: #1A1A1A;
+ color: #FAFAFA;
+ font-size: 0.8rem;
+ font-weight: 700;
+ flex-shrink: 0;
+ }
+
+ .detail-section__title {
+ font-size: 1.4rem;
+ font-weight: 700;
+ color: #1A1A1A;
+ letter-spacing: -0.02em;
+ }
+
+ /* Tech spec grid */
+ .spec-grid {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 1rem;
+ margin-top: 1.5rem;
+ }
+
+ .spec-card {
+ background-color: #fff;
+ border: 1px solid #ECECEC;
+ border-radius: 10px;
+ padding: 1.25rem;
+ transition: box-shadow 0.3s ease;
+ }
+
+ .spec-card:hover {
+ box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+ }
+
+ .spec-card__label {
+ font-size: 0.7rem;
+ font-weight: 700;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: #AAA;
+ margin-bottom: 0.4rem;
+ }
+
+ .spec-card__value {
+ font-size: 1rem;
+ font-weight: 700;
+ color: #1A1A1A;
+ margin-bottom: 0.3rem;
+ }
+
+ .spec-card__desc {
+ font-size: 0.78rem;
+ color: #777;
+ line-height: 1.5;
+ }
+
+ /* Process steps */
+ .process-steps {
+ display: flex;
+ flex-direction: column;
+ gap: 1rem;
+ margin-top: 1.5rem;
+ }
+
+ .process-step {
+ display: flex;
+ gap: 1.25rem;
+ align-items: flex-start;
+ background-color: #fff;
+ border: 1px solid #ECECEC;
+ border-radius: 10px;
+ padding: 1.25rem 1.5rem;
+ transition: box-shadow 0.3s ease;
+ }
+
+ .process-step:hover {
+ box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+ }
+
+ .process-step__num {
+ width: 28px;
+ height: 28px;
+ border-radius: 50%;
+ background-color: #1A1A1A;
+ color: #FAFAFA;
+ font-size: 0.75rem;
+ font-weight: 700;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ margin-top: 0.1rem;
+ }
+
+ .process-step__title {
+ font-size: 0.9rem;
+ font-weight: 700;
+ color: #1A1A1A;
+ margin-bottom: 0.3rem;
+ }
+
+ .process-step__desc {
+ font-size: 0.84rem;
+ color: #666;
+ line-height: 1.65;
+ margin: 0;
+ }
+
+ /* --- Results table --- */
+ .results-wrapper {
+ overflow-x: auto;
+ border-radius: 10px;
+ border: 1px solid #ECECEC;
+ margin-top: 1.5rem;
+ }
+
+ .results-table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 0.85rem;
+ }
+
+ .results-table thead th {
+ background-color: #1A1A1A;
+ color: #FAFAFA;
+ padding: 0.85rem 1.25rem;
+ text-align: left;
+ font-weight: 600;
+ font-size: 0.78rem;
+ letter-spacing: 0.04em;
+ white-space: nowrap;
+ }
+
+ .results-table thead th:not(:first-child) {
+ text-align: center;
+ }
+
+ .results-table tbody tr {
+ border-bottom: 1px solid #F0F0F0;
+ transition: background-color 0.2s ease;
+ }
+
+ .results-table tbody tr:last-child {
+ border-bottom: none;
+ }
+
+ .results-table tbody tr:hover {
+ background-color: #F9F9F9;
+ }
+
+ .results-table tbody td {
+ padding: 0.85rem 1.25rem;
+ color: #444;
+ }
+
+ .results-table tbody td:not(:first-child) {
+ text-align: center;
+ font-weight: 500;
+ }
+
+ .results-table tbody td:first-child {
+ font-weight: 600;
+ color: #1A1A1A;
+ }
+
+ .badge-tp {
+ display: inline-block;
+ background-color: #D1FAE5;
+ color: #065F46;
+ border-radius: 4px;
+ padding: 0.1rem 0.5rem;
+ font-size: 0.78rem;
+ font-weight: 600;
+ }
+
+ .badge-fn {
+ display: inline-block;
+ background-color: #FEF3C7;
+ color: #92400E;
+ border-radius: 4px;
+ padding: 0.1rem 0.5rem;
+ font-size: 0.78rem;
+ font-weight: 600;
+ }
+
+ .badge-fp {
+ display: inline-block;
+ background-color: #FEE2E2;
+ color: #991B1B;
+ border-radius: 4px;
+ padding: 0.1rem 0.5rem;
+ font-size: 0.78rem;
+ font-weight: 600;
+ }
+
+ /* --- Video placeholders --- */
+ .videos-grid {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ gap: 2rem;
+ margin-top: 2rem;
+ }
+
+ .video-card {
+ background-color: #fff;
+ border: 1px solid #ECECEC;
+ border-radius: 14px;
+ overflow: hidden;
+ transition: box-shadow 0.3s ease;
+ }
+
+ .video-card:hover {
+ box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+ }
+
+ .video-card__placeholder {
+ aspect-ratio: 16 / 9;
+ background-color: #1A1A1A;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ gap: 0.75rem;
+ position: relative;
+ overflow: hidden;
+ }
+
+ .video-card__placeholder::before {
+ content: '';
+ position: absolute;
+ inset: 0;
+ background: repeating-linear-gradient(
+ 45deg,
+ transparent,
+ transparent 20px,
+ rgba(255,255,255,0.02) 20px,
+ rgba(255,255,255,0.02) 40px
+ );
+ }
+
+ .video-card__placeholder video {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ }
+
+ .video-card__play-icon {
+ width: 64px;
+ height: 64px;
+ border-radius: 50%;
+ background-color: rgba(255,255,255,0.12);
+ border: 2px solid rgba(255,255,255,0.3);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ position: relative;
+ z-index: 1;
+ }
+
+ .video-card__play-icon svg {
+ color: rgba(255,255,255,0.7);
+ margin-left: 4px;
+ }
+
+ .video-card__coming-soon {
+ font-size: 0.75rem;
+ font-weight: 600;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: rgba(255,255,255,0.4);
+ position: relative;
+ z-index: 1;
+ }
+
+ .video-card__body {
+ padding: 1.25rem 1.5rem;
+ }
+
+ .video-card__title {
+ font-size: 0.95rem;
+ font-weight: 700;
+ color: #1A1A1A;
+ margin-bottom: 0.4rem;
+ }
+
+ .video-card__desc {
+ font-size: 0.82rem;
+ color: #777;
+ line-height: 1.6;
+ }
+
+ /* Tag for video */
+ .video-tag {
+ display: inline-block;
+ margin-top: 0.6rem;
+ padding: 0.2rem 0.6rem;
+ background-color: #F3F4F6;
+ border: 1px solid #E5E7EB;
+ border-radius: 50px;
+ font-size: 0.72rem;
+ font-weight: 500;
+ color: #888;
+ }
+
+ /* --- Publication card --- */
+ .publication-card {
+ background-color: #fff;
+ border: 1px solid #ECECEC;
+ border-radius: 12px;
+ padding: 1.75rem 2rem;
+ display: flex;
+ gap: 1.5rem;
+ align-items: flex-start;
+ margin-top: 1.5rem;
+ transition: box-shadow 0.3s ease;
+ }
+
+ .publication-card:hover {
+ box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+ }
+
+ .publication-card__icon {
+ flex-shrink: 0;
+ width: 48px;
+ height: 48px;
+ background-color: #1A1A1A;
+ border-radius: 10px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ color: #FAFAFA;
+ }
+
+ .publication-card__title {
+ font-size: 1rem;
+ font-weight: 700;
+ color: #1A1A1A;
+ margin-bottom: 0.4rem;
+ }
+
+ .publication-card__meta {
+ font-size: 0.82rem;
+ color: #777;
+ margin-bottom: 0.6rem;
+ }
+
+ .publication-card__authors {
+ font-size: 0.82rem;
+ color: #999;
+ }
+
+ /* --- Tags row --- */
+ .tags-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 0.5rem;
+ margin-top: 1.5rem;
+ }
+
+ /* --- Divider --- */
+ .divider {
+ width: 48px;
+ height: 3px;
+ background-color: #1A1A1A;
+ border-radius: 2px;
+ margin: 0 auto 2.5rem;
+ }
+
+ /* --- Section intro text --- */
+ .section__intro {
+ font-size: 0.95rem;
+ color: #666;
+ text-align: center;
+ max-width: 700px;
+ margin: -1.5rem auto 3rem;
+ line-height: 1.75;
+ }
+
+ /* --- Annotation node table --- */
+ .node-grid {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ gap: 1rem;
+ margin-top: 1.5rem;
+ }
+
+ .node-card {
+ background-color: #fff;
+ border: 1px solid #ECECEC;
+ border-radius: 10px;
+ padding: 1.1rem 1.25rem;
+ display: flex;
+ gap: 1rem;
+ align-items: flex-start;
+ }
+
+ .node-card__icon {
+ width: 36px;
+ height: 36px;
+ border-radius: 8px;
+ background-color: #F3F4F6;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 1.1rem;
+ flex-shrink: 0;
+ }
+
+ .node-card__title {
+ font-size: 0.88rem;
+ font-weight: 700;
+ color: #1A1A1A;
+ margin-bottom: 0.2rem;
+ }
+
+ .node-card__meta {
+ font-size: 0.78rem;
+ color: #888;
+ }
+
+ /* --- Back link --- */
+ .back-link {
+ display: inline-flex;
+ align-items: center;
+ gap: 0.4rem;
+ font-size: 0.82rem;
+ font-weight: 600;
+ color: #888;
+ transition: color 0.3s ease;
+ text-decoration: none;
+ }
+
+ .back-link:hover {
+ color: #1A1A1A;
+ }
+
+ /* ============================================================
+ RESPONSIVE
+ ============================================================ */
+ @media (max-width: 900px) {
+ .stats-row { grid-template-columns: repeat(2, 1fr); }
+ .spec-grid { grid-template-columns: repeat(2, 1fr); }
+ .node-grid { grid-template-columns: 1fr; }
+ }
+
+ @media (max-width: 768px) {
+ .two-col, .two-col--wide { grid-template-columns: 1fr; gap: 2rem; }
+ .videos-grid { grid-template-columns: 1fr; }
+ .aida-top-row { grid-template-columns: 1fr !important; }
+ .pipeline-flow {
+ flex-direction: column;
+ align-items: stretch;
+ }
+ .pipeline-stage + .pipeline-stage::before { display: none; }
+ }
+
+ @media (max-width: 580px) {
+ .stats-row { grid-template-columns: 1fr 1fr; }
+ .spec-grid { grid-template-columns: 1fr; }
+ .thesis-hero__actions { flex-direction: column; align-items: center; }
+ .publication-card { flex-direction: column; }
+ }
+ </style>
+</head>
+<body>
+
+ <!-- ============================================================
+ NAVBAR
+ ============================================================ -->
+ <header class="navbar" id="navbar">
+ <div class="navbar__container">
+ <a href="index.html" class="navbar__logo">G.C.</a>
+
+ <nav class="navbar__menu" id="navMenu">
+ <a href="index.html#about" class="navbar__link">About</a>
+ <a href="index.html#background" class="navbar__link">Background</a>
+ <a href="index.html#projects" class="navbar__link">Projects</a>
+ <a href="index.html#coursework" class="navbar__link">Coursework</a>
+ <a href="index.html#contact" class="navbar__link">Contact</a>
+ </nav>
+
+ <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation menu">
+ <span></span><span></span><span></span>
+ </button>
+ </div>
+ </header>
+
+
+ <!-- ============================================================
+ HERO
+ ============================================================ -->
+ <section class="thesis-hero">
+ <div data-aos="fade-up" data-aos-duration="900">
+ <a href="index.html#projects" class="back-link" style="display:inline-flex;margin-bottom:1.5rem;">
+ <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+ Back to Projects
+ </a>
+ <div>
+ <span class="thesis-hero__eyebrow">
+ <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+ Master Thesis &amp; Preprint
+ </span>
+ </div>
+
+ <h1 class="thesis-hero__title">
+ Multi-Modal Annotation of Regulatory Road Signs<br>
+ <em>along Navigation Paths for Autonomous Driving</em>
+ </h1>
+
+ <p class="thesis-hero__subtitle">
+ A fully automated offline pipeline that fuses Camera and LiDAR data to populate
+ HD map navigation paths with traffic regulation semantics no human labeling required.
+ </p>
+
+ <div class="thesis-hero__meta">
+ <div class="thesis-hero__meta-item">
+ <span class="thesis-hero__meta-label">Author</span>
+ <span class="thesis-hero__meta-value">Gabriele Caslini</span>
+ </div>
+ <div class="thesis-hero__meta-item">
+ <span class="thesis-hero__meta-label">Research Group</span>
+ <span class="thesis-hero__meta-value">AIDA Politecnico di Milano</span>
+ </div>
+ <div class="thesis-hero__meta-item">
+ <span class="thesis-hero__meta-label">Venue</span>
+ <span class="thesis-hero__meta-value">CCTA 2026 (IEEE)</span>
+ </div>
+ <div class="thesis-hero__meta-item">
+ <span class="thesis-hero__meta-label">Defended</span>
+ <span class="thesis-hero__meta-value">December 2025</span>
+ </div>
+ <div class="thesis-hero__meta-item">
+ <span class="thesis-hero__meta-label">Grade</span>
+ <span class="thesis-hero__meta-value">110 / 110 Cum Laude</span>
+ </div>
+ </div>
+
+ <p class="thesis-hero__notice">
+ This page documents my <strong>Master Thesis</strong> at Politecnico di Milano (December 2025, 110/110 Cum Laude). The research was submitted as a <strong>preprint</strong> to CCTA 2026 (IEEE) and is currently under review.
+ </p>
+
+ <div class="thesis-hero__actions">
+ <a href="Automatic_Path_Annotation___CCTA_2026_V__2.pdf" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+ <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+ Read the Paper
+ </a>
+ <a href="#pipeline" class="btn btn--outline">
+ Explore the Pipeline
+ <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+ </a>
+ </div>
+ </div>
+
+ <div class="hero__scroll-indicator">
+ <div class="hero__scroll-arrow"></div>
+ </div>
+ </section>
+
+
+ <!-- ============================================================
+ KEY NUMBERS
+ ============================================================ -->
+ <section class="section section--alt" id="numbers">
+ <div class="container">
+
+ <div class="stats-row">
+ <div class="stat-card" data-aos="fade-up" data-aos-delay="50">
+ <div class="stat-card__value">14 km</div>
+ <div class="stat-card__label">Italian urban roads validated</div>
+ </div>
+ <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+ <div class="stat-card__value">97.5%</div>
+ <div class="stat-card__label">Overall recall across all node classes</div>
+ </div>
+ <div class="stat-card" data-aos="fade-up" data-aos-delay="150">
+ <div class="stat-card__value">20,930</div>
+ <div class="stat-card__label">Training frames, 34 k+ annotations</div>
+ </div>
+ <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+ <div class="stat-card__value">5 min/km</div>
+ <div class="stat-card__label">Offline processing time per kilometer</div>
+ </div>
+ </div>
+
+ </div>
+ </section>
+
+
+ <!-- ============================================================
+ CONTEXT
+ ============================================================ -->
+ <section class="section" id="context">
+ <div class="container">
+ <h2 class="section__title" data-aos="fade-up">Context</h2>
+ <p class="section__intro" data-aos="fade-up" data-aos-delay="100">
+ The AIDA research group at Politecnico di Milano develops autonomous vehicles
+ for complex urban environments, relying on semantically enriched HD maps for safe navigation.
+ </p>
+
+ <div data-aos="fade-up" data-aos-delay="150">
+ <h3 style="font-size:1.3rem; font-weight:700; color:#1A1A1A; letter-spacing:-0.02em; margin-bottom:1.25rem;">The AIDA Project</h3>
+
+ <!-- Top row: text left, video right -->
+ <div class="aida-top-row" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start;">
+
+ <div class="content-block">
+ <p>
+ AIDA (Artificial Intelligence Driving Autonomous) is a research group at Politecnico di Milano
+ focused on autonomous driving in complex urban environments. Their autonomous vehicle relies on
+ a pre-constructed HD map for both localization and high-level planning.
+ </p>
+ <p>
+ Rather than pure geometric scene reconstruction, AIDA uses <strong>augmented navigation paths</strong>:
+ reference trajectories enriched with semantic attributes that directly dictate vehicle behavior
+ at specific locations: where to stop, yield, observe speed limits, and anticipate crosswalks.
+ </p>
+ <p>
+ This path-based formalism simplifies online planning dramatically by embedding traffic rules
+ directly into the navigation graph. The vehicle does not need to reason geometrically about every
+ sign it perceives; the decisions are already pre-encoded in the map.
+ </p>
+ <div class="highlight-box">
+ <p>
+ <strong>The bottleneck:</strong> Generating these semantic annotations currently requires
+ manual labeling, a process that is costly, unscalable, and inconsistent across operators.
+ This work proposes a fully automated replacement.
+ </p>
+ </div>
+ </div>
+
+ <!-- Video -->
+ <div style="border-radius:12px; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+ <video
+ src="placeholder_aida_demo.mp4"
+ autoplay muted loop playsinline
+ style="width:100%; display:block; aspect-ratio:16/9; object-fit:cover;"
+ ></video>
+ </div>
+
+ </div>
+
+ <!-- Fleet image — full width, below the text row -->
+ <!-- Replace aida_car.jpg with the actual fleet photo when ready -->
+ <figure style="margin:2rem 0 0;" data-aos="fade-up" data-aos-delay="200">
+ <img
+ src="aida_car.jpg"
+ alt="AIDA autonomous vehicle fleet at Politecnico di Milano"
+ style="width:100%; border-radius:12px; object-fit:cover; max-height:480px; box-shadow:0 4px 24px rgba(0,0,0,0.10); display:block;"
+ >
+ <figcaption style="margin-top:0.75rem; font-size:0.78rem; color:#999; text-align:center; line-height:1.5;">
+ The AIDA fleet. Each vehicle is equipped with cameras, LiDAR, GNSS, and IMU
+ for urban autonomous driving research at Politecnico di Milano.
+ </figcaption>
+ </figure>
+ </div>
+
+ </div>
+ </section>
+
+
+ <!-- ============================================================
+ MOTIVATION
+ ============================================================ -->
+ <section class="section section--alt" id="motivation">
+ <div class="container">
+ <h2 class="section__title" data-aos="fade-up">Motivation</h2>
+ <p class="section__intro" data-aos="fade-up" data-aos-delay="100">
+ Why existing automatic annotation approaches fall short, and what gap this work fills.
+ </p>
+
+ <div class="two-col" data-aos="fade-up" data-aos-delay="150">
+ <div class="content-block">
+ <h3>Why Existing Methods Fall Short</h3>
+ <p>
+ The literature offers two main strategies for automatic map annotation, both with significant limitations:
+ </p>
+ <ul>
+ <li>
+ <strong>Online vectorization (MapTR, StreamMapNet):</strong> Real-time approaches that
+ cannot correct a noisy detection at time <em>t</em> using future information. Temporal
+ instability makes them unsuitable for ground-truth-quality static reference paths.
+ </li>
+ <li>
+ <strong>Offline SfM-based annotation:</strong> Structure-from-Motion methods aggregate
+ detections over time but focus on generating 3D bounding boxes for a geometric map,
+ not on the functional, behavior-level enrichment required for path annotation.
+ </li>
+ <li>
+ <strong>Monocular depth approaches (IPM):</strong> Inverse Perspective Mapping fails
+ on non-planar vertical objects like traffic signs, and is unreliable in varying lighting.
+ </li>
+ </ul>
+ </div>
+
+ <div class="content-block">
+ <h3>Our Approach</h3>
+ <p>
+ This work bridges the gap by operating fully offline, enabling non-causal temporal
+ aggregation over the complete traversal history. Rather than attempting real-time inference,
+ the system uses every frame ever recorded along the route to filter spurious detections
+ and refine 3D position estimates.
+ </p>
+ <p>
+ LiDAR depth precision replaces unreliable monocular estimation, while the annotation
+ target is explicitly functional: the output is not a geometric map of where signs are,
+ but a behavioral graph of how the vehicle must act at each path node.
+ </p>
+ <div class="highlight-box">
+ <p>
+ <strong>Key insight:</strong> Shifting from geometric reconstruction to functional path
+ annotation allows leveraging the full traversal history and the Italian Road Code
+ to produce annotations that are robust, safety-aware, and directly deployable
+ in the autonomous planner.
+ </p>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </section>
+
+
+ <!-- ============================================================
+ PIPELINE OVERVIEW
+ ============================================================ -->
+ <section class="section section--alt" id="pipeline">
+ <div class="container">
+ <h2 class="section__title" data-aos="fade-up">Pipeline Overview</h2>
+ <p class="section__intro" data-aos="fade-up" data-aos-delay="100">
+ The system operates fully offline on a recorded drive. Given raw sensor data and a reference path,
+ it outputs a semantically enriched navigation graph with no human intervention.
+ </p>
+
+ <figure style="margin: 2rem 0 0;">
+ <img src="placeholder_aida_pipeline.jpg" alt="System pipeline diagram"
+  style="width:100%; border-radius:12px; display:block; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+ </figure>
+
+ </div>
+ </section>
+
+
+ <!-- ============================================================
+ STAGE 1 DETECTION & TRACKING
+ ============================================================ -->
+ <section class="section" id="detection">
+ <div class="container">
+
+ <div class="detail-section" data-aos="fade-up">
+ <div class="detail-section__header">
+ <div class="detail-section__badge">01</div>
+ <h2 class="detail-section__title">Detection &amp; Tracking</h2>
+ </div>
+
+ <div class="two-col two-col--wide">
+ <div class="content-block">
+ <h3>Dataset Construction</h3>
+ <p>
+ No single public dataset covers the full set of traffic signs encountered in
+ Italian urban environments. The dataset was assembled from six major European
+ benchmarks (DFG, MTSD, BTSD, STSD, RTSD, PTSD), all re-annotated under a
+ common 31-class scheme and extended with proprietary Italian recordings.
+ </p>
+ <p>
+ A <strong>pseudo-labeling pipeline</strong> accelerated the enrichment of the Italian portion:
+ a baseline YOLOv11-M model generated candidate labels on proprietary frames, which
+ were then manually verified and corrected. This semi-supervised workflow substantially
+ reduced annotation effort while maintaining label quality.
+ </p>
+
+ <div class="spec-grid">
+ <div class="spec-card">
+ <div class="spec-card__label">Total Frames</div>
+ <div class="spec-card__value">20,930</div>
+ <div class="spec-card__desc">Across all merged datasets</div>
+ </div>
+ <div class="spec-card">
+ <div class="spec-card__label">Annotations</div>
+ <div class="spec-card__value">34,000+</div>
+ <div class="spec-card__desc">Bounding boxes across 31 classes</div>
+ </div>
+ <div class="spec-card">
+ <div class="spec-card__label">Sign Classes</div>
+ <div class="spec-card__value">31</div>
+ <div class="spec-card__desc">Danger, Priority, Mandatory, Restrictive, Road Markings</div>
+ </div>
+ </div>
+
+ <h3 style="margin-top:2rem;">YOLOv11 Detector</h3>
+ <p>
+ YOLOv11-l was selected as the detection backbone due to its state-of-the-art performance
+ on traffic sign detection tasks within the YOLO family. The model incorporates
+ <strong>Spatial Attention</strong> mechanisms that improve detection of small objects 
+ critical for distant signs within a single-stage detection head that jointly predicts
+ all 31 classes.
+ </p>
+ <p>
+ Hyperparameters were optimized via <strong>Bayesian Optimization</strong>: 20 runs of
+ 30 epochs each, searching over learning rate, optimizer type, momentum, weight decay,
+ and classification loss weight. The objective function was mAP50-95 on the validation split.
+ </p>
+ </div>
+
+ <div class="content-block">
+ <h3>Training Results</h3>
+ <div class="spec-grid" style="grid-template-columns:1fr 1fr;">
+ <div class="spec-card">
+ <div class="spec-card__label">mAP50</div>
+ <div class="spec-card__value">0.917</div>
+ <div class="spec-card__desc">Mean Average Precision at IoU 0.5</div>
+ </div>
+ <div class="spec-card">
+ <div class="spec-card__label">mAP50-95</div>
+ <div class="spec-card__value">best</div>
+ <div class="spec-card__desc">Optimization objective</div>
+ </div>
+ <div class="spec-card">
+ <div class="spec-card__label">Recall</div>
+ <div class="spec-card__value">0.841</div>
+ <div class="spec-card__desc">True positive rate on test split</div>
+ </div>
+ <div class="spec-card">
+ <div class="spec-card__label">Precision</div>
+ <div class="spec-card__value">0.923</div>
+ <div class="spec-card__desc">High accuracy on positive predictions</div>
+ </div>
+ </div>
+
+ <h3 style="margin-top:2rem;">Multi-Camera Tracking</h3>
+ <p>
+ The vehicle is equipped with three front-facing cameras arranged as a wide mosaic
+ (minimal overlap). A single <strong>BoT-SORT</strong> tracker operates across the
+ fused mosaic, providing:
+ </p>
+ <ul>
+ <li><strong>Appearance Re-Identification:</strong> Re-associates tracklets after occlusions using deep appearance embeddings.</li>
+ <li><strong>Global Motion Compensation:</strong> Corrects for ego-vehicle motion to maintain stable tracks during turns and acceleration.</li>
+ <li><strong>3-Camera Selection Layer:</strong> Central-camera detections are always kept. Lateral tracks are retained only when spatially close to a central track and semantically compatible preventing false positives from signs at lateral intersections irrelevant to the ego lane.</li>
+ </ul>
+ </div>
+ </div>
+
+ <!-- Detection & Tracking video -->
+ <div style="margin-top:2.5rem;" data-aos="fade-up" data-aos-delay="150">
+  <p style="font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#AAA;margin-bottom:0.75rem;">Demo — Detection, Tracking &amp; LiDAR Points</p>
+  <video
+   src="video_iniziale.mp4"
+   autoplay
+   muted
+   loop
+   playsinline
+   style="width:100%;border-radius:12px;display:block;background:#000;aspect-ratio:1920/414;"
+  >
+   Your browser does not support the video tag.
+  </video>
+ </div>
+
+ </div>
+ </div>
+ </section>
+
+
+ <!-- ============================================================
+ STAGE 2 LIDAR FUSION & LOCALIZATION
+ ============================================================ -->
+ <section class="section section--alt" id="localization">
+ <div class="container">
+
+ <div class="detail-section" data-aos="fade-up">
+ <div class="detail-section__header">
+ <div class="detail-section__badge">02</div>
+ <h2 class="detail-section__title">LiDAR Fusion &amp; 3D Localization</h2>
+ </div>
+
+ <p class="content-block" style="max-width:800px; margin-bottom:2rem;">
+ <span style="font-size:0.9rem; color:#555; line-height:1.8;">
+ Precise depth estimation is the critical enabler for placing annotations at the correct
+ path offset. Camera-only methods (monocular depth, IPM) are unreliable for small vertical
+ objects. LiDAR provides centimeter-level metric depth. The fusion strategy projects LiDAR
+ point clouds through calibrated camera intrinsics and extrinsics into 2D bounding box frustums,
+ then aggregates those points in global ENU coordinates across all frames where the sign was tracked.
+ </span>
+ </p>
+
+ <div class="two-col" data-aos="fade-up" data-aos-delay="100">
+ <div>
+ <h3 class="content-block" style="font-size:1.1rem; font-weight:700; color:#1A1A1A; margin-bottom:1.25rem;">Vertical Traffic Signs</h3>
+ <div class="process-steps">
+ <div class="process-step">
+ <div class="process-step__num">1</div>
+ <div>
+ <div class="process-step__title">LiDAR Frustum Extraction</div>
+ <p class="process-step__desc">For each tracked detection, LiDAR points inside the projected bounding box frustum are collected and transformed to global ENU coordinates using ego-pose.</p>
+ </div>
+ </div>
+ <div class="process-step">
+ <div class="process-step__num">2</div>
+ <div>
+ <div class="process-step__title">Background Removal (k-means, 2 stages)</div>
+ <p class="process-step__desc">Two-stage k-means (k=2) separates foreground sign points from background structure. Size and distance filters remove detections smaller than 400×400 px or farther than 25 m.</p>
+ </div>
+ </div>
+ <div class="process-step">
+ <div class="process-step__num">3</div>
+ <div>
+ <div class="process-step__title">RANSAC Plane &amp; Normal Estimation</div>
+ <p class="process-step__desc">RANSAC fits the sign plane and estimates its normal vector n̂. Signs facing away from the vehicle are discarded by checking ‖n̂ × d̂<sub>c</sub>‖ &lt; sin(30°).</p>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div>
+ <h3 class="content-block" style="font-size:1.1rem; font-weight:700; color:#1A1A1A; margin-bottom:1.25rem;">Horizontal Road Markings</h3>
+ <div class="process-steps">
+ <div class="process-step">
+ <div class="process-step__num">1</div>
+ <div>
+ <div class="process-step__title">Above-Ground Outlier Filtering</div>
+ <p class="process-step__desc">Points beyond 25 m or with insufficient LiDAR support are removed. Height-based clustering handles excessive vertical dispersion caused by road slope or reflections.</p>
+ </div>
+ </div>
+ <div class="process-step">
+ <div class="process-step__num">2</div>
+ <div>
+ <div class="process-step__title">Quantile Trimming (Trapezoidal Artifact Removal)</div>
+ <p class="process-step__desc">Camera–LiDAR projection introduces trapezoidal distortions. Points are transformed into a path-aligned frame and symmetrically trimmed (α<sub>t</sub>=0.06, α<sub>n</sub>=0.02) to recover a rectangular footprint.</p>
+ </div>
+ </div>
+ <div class="process-step">
+ <div class="process-step__num">3</div>
+ <div>
+ <div class="process-step__title">Road Plane + Side Refinement (ROI)</div>
+ <p class="process-step__desc">RANSAC estimates the supporting road plane accounting for slope. A region of interest is extracted laterally to define precise crosswalk boundaries for pedestrian zone planning.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div class="highlight-box" style="margin-top:2rem;" data-aos="fade-up" data-aos-delay="150">
+ <p>
+ <strong>Path relevance filtering:</strong> After 3D localization, each sign's centroid is
+ cross-referenced with the ego-path polyline. A sign is retained only if its perpendicular
+ distance to the nearest path node is within half its own extent in the path-normal direction.
+ This prevents annotations from lateral intersections being incorrectly placed on the driven route.
+ </p>
+ </div>
+
+ </div>
+
+ <!-- LiDAR raw data videos -->
+ <div style="margin-top:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;" data-aos="fade-up" data-aos-delay="200">
+  <div>
+   <p style="font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#AAA;margin-bottom:0.6rem;">LiDAR Points Collected</p>
+   <video src="darfo_lidar.mp4" autoplay muted loop playsinline
+    style="width:100%;border-radius:10px;display:block;background:#000;aspect-ratio:960/614;">
+    Your browser does not support the video tag.
+   </video>
+  </div>
+  <div>
+   <p style="font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#AAA;margin-bottom:0.6rem;">Raw RGB Projection</p>
+   <video src="darfo_raw_rgb.mp4" autoplay muted loop playsinline
+    style="width:100%;border-radius:10px;display:block;background:#000;aspect-ratio:960/620;">
+    Your browser does not support the video tag.
+   </video>
+  </div>
+ </div>
+
+ </div>
+ </section>
+
+
+ <!-- ============================================================
+ STAGE 3-4 ANNOTATION
+ ============================================================ -->
+ <section class="section" id="annotation">
+ <div class="container">
+
+ <div class="detail-section" data-aos="fade-up">
+ <div class="detail-section__header">
+ <div class="detail-section__badge">04</div>
+ <h2 class="detail-section__title">Hierarchical Semantic Path Annotation</h2>
+ </div>
+
+ <div class="two-col two-col--wide" data-aos="fade-up" data-aos-delay="100">
+ <div class="content-block">
+ <h3>Special Node Types</h3>
+ <p>
+ The annotation output consists of Special Nodes placed at precise offsets along the
+ vehicle path. Each node encodes the expected driving behavior at that location,
+ derived from the Italian Road Code.
+ </p>
+
+ <div class="node-grid">
+ <div class="node-card">
+ <div class="node-card__icon">🛑</div>
+ <div>
+ <div class="node-card__title">Stop at Junction</div>
+ <div class="node-card__meta">Placed at −2 m from stop line</div>
+ </div>
+ </div>
+ <div class="node-card">
+ <div class="node-card__icon">🚦</div>
+ <div>
+ <div class="node-card__title">Stop at Traffic Light</div>
+ <div class="node-card__meta">Placed at −6 m from stop line</div>
+ </div>
+ </div>
+ <div class="node-card">
+ <div class="node-card__icon">⬡</div>
+ <div>
+ <div class="node-card__title">Yield at Roundabout</div>
+ <div class="node-card__meta">Placed at −3.5 m from yield line</div>
+ </div>
+ </div>
+ <div class="node-card">
+ <div class="node-card__icon">🚶</div>
+ <div>
+ <div class="node-card__title">Yield at Crosswalk</div>
+ <div class="node-card__meta">Placed at −10.5 m early slow-down</div>
+ </div>
+ </div>
+ <div class="node-card">
+ <div class="node-card__icon">↕</div>
+ <div>
+ <div class="node-card__title">Yield at Junction</div>
+ <div class="node-card__meta">Placed at −3.5 m from yield marking</div>
+ </div>
+ </div>
+ <div class="node-card">
+ <div class="node-card__icon">🔢</div>
+ <div>
+ <div class="node-card__title">Speed Limit</div>
+ <div class="node-card__meta">Placed at 0 m sign location</div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div class="content-block">
+ <h3>Hierarchical Reasoning Logic</h3>
+ <p>
+ The annotation engine follows a strict priority hierarchy, iteratively consuming
+ the set of detected signs TS = {ts₁, ts₂, …, tsₙ}:
+ </p>
+
+ <div class="process-steps">
+ <div class="process-step">
+ <div class="process-step__num">1</div>
+ <div>
+ <div class="process-step__title">Anchor Selection</div>
+ <p class="process-step__desc">Horizontal markings (stop lines, yield lines, crosswalks) are preferred as anchors they provide the most spatially precise position along the path.</p>
+ </div>
+ </div>
+ <div class="process-step">
+ <div class="process-step__num">2</div>
+ <div>
+ <div class="process-step__title">Redundant Evidence Aggregation</div>
+ <p class="process-step__desc">All signs within a class-dependent spatial threshold of the anchor are merged. This fuses the stop line, the vertical stop sign, and the "STOP" text marking into a single annotation.</p>
+ </div>
+ </div>
+ <div class="process-step">
+ <div class="process-step__num">3</div>
+ <div>
+ <div class="process-step__title">Advance Sign Disambiguation (OCR)</div>
+ <p class="process-step__desc">An OCR pipeline reads distance panels on advance signs. The recognized distance defines a search window for the actual regulatory sign, preventing advance warnings from generating premature nodes.</p>
+ </div>
+ </div>
+ <div class="process-step">
+ <div class="process-step__num">4</div>
+ <div>
+ <div class="process-step__title">Auxiliary Semantic Refinement</div>
+ <p class="process-step__desc">When a stop line is detected, an auxiliary traffic light detector determines whether the stop is governed by a junction rule or by a traffic light signal refining the node class.</p>
+ </div>
+ </div>
+ <div class="process-step">
+ <div class="process-step__num">5</div>
+ <div>
+ <div class="process-step__title">Hierarchical Fallback</div>
+ <p class="process-step__desc">If no horizontal markings remain, the process repeats using horizontal text markings, then vertical signs as anchors ensuring all relevant signs contribute even without ideal road markings.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
+ </section>
+
+
+ <!-- ============================================================
+ RESULTS & VALIDATION
+ ============================================================ -->
+ <section class="section section--alt" id="results">
+ <div class="container">
+ <h2 class="section__title" data-aos="fade-up">Results &amp; Validation</h2>
+ <p class="section__intro" data-aos="fade-up" data-aos-delay="100">
+ Evaluated on 5 manually annotated HD maps across more than 14 km of Italian urban roads,
+ using an asymmetric safety-aware evaluation with class-specific validity windows.
+ </p>
+
+ <div class="two-col" data-aos="fade-up" data-aos-delay="150">
+ <div class="content-block">
+ <h3>Evaluation Methodology</h3>
+ <p>
+ Standard binary matching is insufficient for safety-critical systems: placing a node
+ 2 m early (conservative) is very different from placing it 2 m late (potentially unsafe).
+ The evaluation uses <strong>asymmetric validity windows</strong> per class wide
+ negative margins (before the ground truth) are tolerated, while positive offsets
+ (after the ground truth) quickly become false negatives.
+ </p>
+ <p>
+ A <strong>Functional Equivalence Analysis</strong> further assesses behavioral correctness:
+ if the system predicts "Stop at Traffic Light" where the ground truth is "Stop at Junction",
+ the correct <em>stop</em> behavior is still triggered this is counted as a True Positive
+ under functional equivalence, since autonomous driving safety is preserved.
+ </p>
+ <ul>
+ <li><strong>Conservative bias:</strong> TP distributions are skewed toward negative offsets, meaning nodes are consistently placed <em>before</em> the physical landmark the safe direction.</li>
+ <li><strong>Failure modes:</strong> 14 of 16 total failures originate in the filtering and annotation module; only 2 from the detector/tracker. Most critical failures involve visually degraded markings (worn paint, tram-track intersections, low-contrast pavement).</li>
+ <li><strong>Fallback performance:</strong> Only 3 missed events and 13 false positives over 161 total ground-truth annotations in the behavior-equivalent configuration.</li>
+ </ul>
+ </div>
+
+ <div>
+ <h3 class="content-block" style="font-size:1.1rem; font-weight:700; color:#1A1A1A; margin-bottom:1.25rem;">Per-Class Results (3-Camera Setup)</h3>
+ <div class="results-wrapper">
+ <table class="results-table">
+ <thead>
+ <tr>
+ <th>Node Type</th>
+ <th>TP</th>
+ <th>FN</th>
+ <th>FP</th>
+ <th>TP (equiv.)</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Stop at Junction</td>
+ <td><span class="badge-tp">3</span></td>
+ <td><span class="badge-fn">0</span></td>
+ <td><span class="badge-fp">5</span></td>
+ <td><span class="badge-tp">3</span></td>
+ </tr>
+ <tr>
+ <td>Stop at Traffic Light</td>
+ <td><span class="badge-tp">25</span></td>
+ <td><span class="badge-fn">2</span></td>
+ <td><span class="badge-fp">0</span></td>
+ <td><span class="badge-tp">26</span></td>
+ </tr>
+ <tr>
+ <td>Yield at Roundabout</td>
+ <td><span class="badge-tp">19</span></td>
+ <td><span class="badge-fn">0</span></td>
+ <td><span class="badge-fp">0</span></td>
+ <td><span class="badge-tp">19</span></td>
+ </tr>
+ <tr>
+ <td>Yield at Crosswalk</td>
+ <td><span class="badge-tp">108</span></td>
+ <td><span class="badge-fn">2</span></td>
+ <td><span class="badge-fp">5</span></td>
+ <td><span class="badge-tp">108</span></td>
+ </tr>
+ <tr>
+ <td>Yield at Junction</td>
+ <td><span class="badge-tp">2</span></td>
+ <td><span class="badge-fn">0</span></td>
+ <td><span class="badge-fp">3</span></td>
+ <td><span class="badge-tp">2</span></td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+
+ <div class="highlight-box" style="margin-top:1.5rem;">
+ <p>
+ <strong>Recall: 93% – 100%</strong> across all node classes.<br>
+ Processing speed: <strong>~5 minutes per kilometer</strong> of road, making
+ large-scale map generation feasible in a day-long offline batch.
+ </p>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </section>
+
+
+
+
+<!-- ============================================================
+ THANK YOU
+ ============================================================ -->
+ <section class="section section--alt" id="thanks">
+ <div class="container" style="text-align:center; padding-top:4rem; padding-bottom:4rem;">
+ <h2 class="section__title" data-aos="fade-up" style="font-size:clamp(2rem,5vw,3.5rem); letter-spacing:-0.03em;">
+  Thank you for your attention!
+ </h2>
+ <p style="font-size:1rem; color:#666; margin-top:1rem;" data-aos="fade-up" data-aos-delay="100">
+  Gabriele Caslini &mdash; Master Thesis, Politecnico di Milano
+ </p>
+ </div>
+ </section>
+
+
+ <!-- ============================================================
+ FOOTER
+ ============================================================ -->
+ <footer class="footer" id="contact">
+ <div class="container">
+ <h2 class="section__title section__title--light" data-aos="fade-up">Contact</h2>
+
+ <div class="footer__content" data-aos="fade-up" data-aos-delay="200">
+ <p class="footer__text">
+ Interested in this work or want to discuss autonomous driving research? Get in touch.
+ </p>
+
+ <div class="footer__links">
+ <a href="mailto:gabrielecasli@gmail.com" class="footer__link">
+ <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+ gabrielecasli@gmail.com
+ </a>
+ <a href="https://www.linkedin.com/in/gabriele-caslini-57482b245" target="_blank" rel="noopener noreferrer" class="footer__link">
+ <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+ LinkedIn
+ </a>
+ <a href="index.html" class="footer__link">
+ <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+ Portfolio
+ </a>
+ </div>
+ </div>
+
+ <div class="footer__bottom">
+ <p>&copy; 2026 Gabriele Caslini. All rights reserved.</p>
+ </div>
+ </div>
+ </footer>
+
+
+ <!-- AOS Library -->
+ <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+ <script>
+ document.addEventListener('DOMContentLoaded', function () {
+ AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
+
+ /* Navbar scroll effect */
+ var navbar = document.getElementById('navbar');
+ window.addEventListener('scroll', function () {
+ navbar.classList.toggle('navbar--scrolled', window.scrollY > 50);
+ }, { passive: true });
+
+ /* Mobile menu */
+ var toggle = document.getElementById('navToggle');
+ var menu = document.getElementById('navMenu');
+ toggle.addEventListener('click', function () {
+ toggle.classList.toggle('navbar__toggle--active');
+ menu.classList.toggle('navbar__menu--open');
+ });
+ menu.querySelectorAll('.navbar__link').forEach(function (link) {
+ link.addEventListener('click', function () {
+ toggle.classList.remove('navbar__toggle--active');
+ menu.classList.remove('navbar__menu--open');
+ });
+ });
+ });
+ </script>
+
+</body>
+</html>

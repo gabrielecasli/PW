@@ -142,7 +142,7 @@
               97.5% recall over 14 km of real-world testing on Italian roads.
             </p>
             <p class="timeline__highlight">
-              Upcoming publication: <em>Camera-LiDAR Fusion for Traffic Sign and Road Marking
+              Preprint: <em>Camera-LiDAR Fusion for Traffic Sign and Road Marking
               Extraction for Autonomous Driving</em> (Feb 2026, CCTA).
             </p>
             <div class="timeline__tags">
@@ -282,10 +282,15 @@
               <span>Python</span><span>PyTorch</span><span>YOLOv11</span><span>ROS</span>
               <span>Docker</span><span>Slurm</span><span>LiDAR</span><span>Computer Vision</span>
             </div>
-            <button class="project-card__toggle" aria-expanded="false">
-              Read more
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
+            <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+              <button class="project-card__toggle" aria-expanded="false">
+                Read more
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <a href="thesis.html" class="project-card__inline-link" style="font-size:0.85rem;" onclick="event.stopPropagation()">
+                Full project &rarr;
+              </a>
+            </div>
           </div>
 
           <!-- EXPANDABLE DETAIL SECTION -->
@@ -308,9 +313,9 @@
                 <p>The system is composed of four main stages that process recorded drives:</p>
                 <ul>
                   <li>
-                    <strong>Detection:</strong> A YOLOv11-M detector, trained on a custom dataset
+                    <strong>Detection:</strong> A YOLOv11 detector, trained on a custom dataset
                     of 20,930 images (34,000+ annotations) spanning 31 traffic sign classes.
-                    Hyperparameters were optimized via Bayesian Optimization (20 runs, 30 epochs each)
+                    Hyperparameters were optimized via Bayesian Optimization 
                     targeting mAP50-95. Training achieved mAP50 of 0.917, Recall of 0.841, Precision of 0.923.
                   </li>
                   <li>
@@ -321,7 +326,7 @@
                   <li>
                     <strong>3D Localization & Pose Estimation:</strong> LiDAR points are projected
                     onto camera frames and filtered per bounding box. Background point removal via
-                    statistical filtering, followed by 3D pose estimation (normal vector extraction)
+                    statistical filtering, followed by 3D pose estimation (RANSAC)
                     for vertical signs and side refinement with ROI extraction for horizontal markings.
                   </li>
                   <li>
@@ -341,8 +346,8 @@
                   Processing time: 5 minutes per kilometer.
                 </p>
                 <p>
-                  <strong>Upcoming publication:</strong> <em>Camera-LiDAR Fusion for Traffic Sign
-                  and Road Marking Extraction for Autonomous Driving</em> (Feb 2026, CCTA).
+                  <strong>Preprint:</strong> <em>Multi-Modal Annotation of Regulatory Road Signs 
+                    along Navigation Paths for Autonomous Driving</em> (Feb 2026, CCTA).
                 </p>
               </div>
 
