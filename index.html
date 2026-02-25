@@ -371,18 +371,24 @@
           <div class="project-card__body">
             <h3 class="project-card__title">Goodnight Moon: Early Literacy Screening</h3>
             <p class="project-card__description">
-              Custom Transformer scoring model built on Whisper embeddings with interleaved
-              self/cross-attention for automated children's literacy assessment.
+              Three complementary deep learning architectures &mdash; a Whisper Transformer
+              with Mixup augmentation, a contrastive dual-branch model, and a Phonetic Transformer
+              &mdash; for automated children&rsquo;s literacy audio scoring.
               Ranked 8th out of 399 teams in the MIT &ldquo;Goodnight Moon&rdquo; challenge.
             </p>
             <div class="project-card__tags">
               <span>Python</span><span>PyTorch</span><span>Whisper</span>
               <span>Wav2Vec2</span><span>HuggingFace</span><span>Wandb</span><span>ASR</span>
             </div>
-            <button class="project-card__toggle" aria-expanded="false">
-              Read more
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
+            <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+              <button class="project-card__toggle" aria-expanded="false">
+                Read more
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <a href="epochv.html" class="project-card__inline-link" style="font-size:0.85rem;" onclick="event.stopPropagation()">
+                Full project &rarr;
+              </a>
+            </div>
           </div>
 
           <!-- EXPANDABLE DETAIL SECTION -->
@@ -406,28 +412,31 @@
                 <h4>Approach</h4>
                 <ul>
                   <li>
-                    <strong>Main model - Whisper Transformer:</strong> A custom encoder-decoder
-                    Transformer that takes the expected text (character-level tokenizer, 40-token vocab)
-                    and pre-computed Whisper-base audio embeddings as inputs. Four interleaved
-                    self-attention / cross-attention layers (S-C-S-C pattern) progressively fuse
-                    text and audio representations. A learnable CLS token aggregates the final
-                    sequence into a single vector, fed through a LayerNorm + MLP head to predict
-                    a score in [0,&thinsp;1]. Training uses AdamW with linear warmup + cosine decay,
-                    EMA weight averaging (decay &asymp; 0.983), and Bayesian hyperparameter search via W&amp;B.
+                    <strong>Whisper Transformer:</strong> A custom encoder-decoder Transformer
+                    that takes character-level text tokens and pre-computed Whisper-base audio
+                    embeddings as dual inputs. Four interleaved self-attention / cross-attention
+                    layers (S-C-S-C pattern) progressively fuse text and audio representations,
+                    with a learnable CLS token aggregating the final sequence into a single vector
+                    for score prediction. Training leverages BCELoss with Mixup data augmentation
+                    applied at the embedding level &mdash; mixing both inputs and soft targets &mdash;
+                    combined with EMA weight averaging and a linear warmup + cosine decay schedule.
+                    All hyperparameters were optimized via Bayesian search with Weights &amp; Biases sweeps.
                   </li>
                   <li>
-                    <strong>Contrastive model:</strong> Dual-branch architecture
-                    (Wav2Vec2 for audio, FastText for text) projecting both modalities into a shared
-                    256-d space and scoring via cosine similarity.
+                    <strong>Contrastive Audio-Text model:</strong> A dual-branch architecture that
+                    encodes audio (Wav2Vec2 embeddings processed through self-attention layers) and
+                    text (FastText embeddings, similarly processed) fully independently, then projects
+                    both into a shared 256-dimensional space. Similarity is measured via cosine
+                    similarity, yielding a directly interpretable score: high alignment means the
+                    child read correctly. Hyperparameters optimized via Bayesian W&amp;B sweeps.
                   </li>
                   <li>
-                    <strong>Phonetic Transformer:</strong> Variant replacing continuous Whisper
-                    embeddings with discrete phoneme tokens, enabling a symbolic text-vs-phoneme
-                    comparison through a shared embedding space.
-                  </li>
-                  <li>
-                    <strong>Experiment tracking:</strong> Full lifecycle managed with
-                    Weights &amp; Biases sweeps and HuggingFace model hub.
+                    <strong>Phonetic Transformer:</strong> A linguistically motivated variant that
+                    replaces continuous Whisper audio embeddings with discrete phoneme token sequences
+                    &mdash; the phonetic transcription of the child&rsquo;s speech. A shared embedding
+                    space unifies alphabetic and phonetic vocabularies, enabling a symbolic
+                    text-vs-pronunciation comparison through interleaved attention. Trained with
+                    BCELoss and a cosine annealing learning rate schedule.
                   </li>
                 </ul>
               </div>

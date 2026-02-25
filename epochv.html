@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goodnight Moon | Early Literacy Screening | Gabriele Caslini</title>
+  <meta name="description" content="Deep learning models for automated children's literacy screening — MIT Goodnight Moon Challenge, Epoch V, TU Delft. Gabriele Caslini.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <!-- Base stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+  /* ============================================================
+     EPOCH V PAGE EXTENDED STYLES
+     ============================================================ */
+  /* --- Hero --- */
+  .thesis-hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 7rem 1.5rem 4rem;
+    position: relative;
+    background: linear-gradient(160deg, #FAFAFA 60%, #F0F0F0 100%);
+  }
+
+  .thesis-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    background-color: #F3F4F6;
+    border: 1px solid #E5E7EB;
+    border-radius: 50px;
+    padding: 0.3rem 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .thesis-hero__title {
+    font-size: clamp(1.75rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    max-width: 820px;
+    margin-bottom: 1.25rem;
+  }
+
+  .thesis-hero__title em {
+    font-style: normal;
+    color: #555;
+  }
+
+  .thesis-hero__subtitle {
+    font-size: 1rem;
+    color: #666;
+    margin: 0 auto 2.5rem;
+    max-width: 620px;
+    text-align: center;
+    line-height: 1.7;
+  }
+
+  .thesis-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .thesis-hero__meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+  }
+
+  .thesis-hero__meta-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #AAA;
+  }
+
+  .thesis-hero__meta-value {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .thesis-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn--primary {
+    background-color: #1A1A1A;
+    color: #FAFAFA;
+    border: 2px solid #1A1A1A;
+  }
+
+  .btn--primary:hover {
+    background-color: #333;
+    color: #FAFAFA;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  }
+
+  .btn--outline {
+    background-color: transparent;
+    color: #1A1A1A;
+    border: 2px solid #1A1A1A;
+  }
+
+  .btn--outline:hover {
+    background-color: #1A1A1A;
+    color: #FAFAFA;
+  }
+
+  /* --- Section alternates --- */
+  .section--alt {
+    background-color: #fff;
+  }
+
+  /* --- Stat row --- */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .stat-card {
+    background-color: #FAFAFA;
+    border: 1px solid #ECECEC;
+    border-radius: 12px;
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .stat-card:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+  }
+
+  .stat-card__value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-card__label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #888;
+    line-height: 1.4;
+  }
+
+  /* --- Content blocks --- */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .two-col--wide {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .content-block h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .content-block p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 0.9rem;
+  }
+
+  .content-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .content-block li {
+    position: relative;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.75;
+    padding-left: 1.3rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .content-block li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65rem;
+    width: 6px;
+    height: 6px;
+    background-color: #1A1A1A;
+    border-radius: 50%;
+  }
+
+  .content-block li strong {
+    color: #1A1A1A;
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    background-color: #1A1A1A;
+    color: #FAFAFA;
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .highlight-box p {
+    font-size: 0.88rem;
+    color: #D1D5DB;
+    line-height: 1.75;
+    margin-bottom: 0.5rem;
+  }
+
+  .highlight-box p:last-child { margin-bottom: 0; }
+
+  .highlight-box strong {
+    color: #FAFAFA;
+  }
+
+  /* --- Model cards --- */
+  .model-card {
+    background-color: #FAFAFA;
+    border: 1px solid #ECECEC;
+    border-radius: 14px;
+    padding: 2rem 2.25rem;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .model-card:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+  }
+
+  .model-card:last-child {
+    margin-bottom: 0;
+  }
+
+  .model-card__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .model-card__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background-color: #1A1A1A;
+    color: #FAFAFA;
+    font-size: 0.82rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .model-card__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    letter-spacing: -0.02em;
+  }
+
+  .model-card__subtitle {
+    font-size: 0.82rem;
+    color: #888;
+    font-weight: 500;
+    margin-top: 0.1rem;
+  }
+
+  .model-card p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 0.8rem;
+  }
+
+  .model-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0.8rem;
+  }
+
+  .model-card li {
+    position: relative;
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 1.75;
+    padding-left: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .model-card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65rem;
+    width: 6px;
+    height: 6px;
+    background-color: #1A1A1A;
+    border-radius: 50%;
+  }
+
+  .model-card li strong {
+    color: #1A1A1A;
+  }
+
+  /* Technique pills inside model card */
+  .technique-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .technique-pill {
+    display: inline-block;
+    padding: 0.28rem 0.75rem;
+    background-color: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 50px;
+    font-size: 0.73rem;
+    font-weight: 500;
+    color: #555;
+  }
+
+  /* --- Gallery --- */
+  .gallery-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .gallery-two__item {
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #E8E8E8;
+    border: 1px solid #ECECEC;
+  }
+
+  .gallery-two__item img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gallery-two__caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.78rem;
+    color: #888;
+    font-weight: 500;
+    background-color: #FAFAFA;
+    border-top: 1px solid #ECECEC;
+  }
+
+  /* --- Detail section headers --- */
+  .detail-section {
+    margin-bottom: 4rem;
+  }
+
+  .detail-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .detail-section__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .detail-section__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background-color: #1A1A1A;
+    color: #FAFAFA;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .detail-section__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    letter-spacing: -0.02em;
+  }
+
+  /* --- Comparison table --- */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 1.5rem;
+  }
+
+  .compare-table th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #888;
+    background-color: #F8F8F8;
+    border-bottom: 2px solid #ECECEC;
+  }
+
+  .compare-table td {
+    padding: 0.75rem 1rem;
+    color: #555;
+    border-bottom: 1px solid #F0F0F0;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .compare-table td:first-child {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .compare-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .compare-table tr:hover td {
+    background-color: #FAFAFA;
+  }
+
+  /* --- Back button --- */
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #888;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+    margin-bottom: 1.5rem;
+  }
+
+  .back-btn:hover {
+    color: #1A1A1A;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 768px) {
+    .two-col,
+    .two-col--wide {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .stats-row {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .gallery-two {
+      grid-template-columns: 1fr;
+    }
+
+    .model-card {
+      padding: 1.5rem;
+    }
+
+    .compare-table {
+      font-size: 0.78rem;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 0.6rem 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stats-row {
+      grid-template-columns: 1fr;
+    }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       HEADER / NAVBAR
+       ============================================ -->
+  <header class="navbar" id="navbar">
+    <div class="navbar__container">
+      <a href="index.html" class="navbar__logo">G.C.</a>
+
+      <nav class="navbar__menu" id="navMenu">
+        <a href="index.html#about" class="navbar__link">About</a>
+        <a href="index.html#background" class="navbar__link">Background</a>
+        <a href="index.html#projects" class="navbar__link">Projects</a>
+        <a href="index.html#contact" class="navbar__link">Contact</a>
+      </nav>
+
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+
+  <!-- ============================================
+       HERO
+       ============================================ -->
+  <section class="thesis-hero">
+    <a href="index.html#projects" class="back-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to projects
+    </a>
+
+    <div class="thesis-hero__eyebrow">
+      MIT Goodnight Moon Challenge &nbsp;&middot;&nbsp; Epoch V &nbsp;&middot;&nbsp; TU Delft
+    </div>
+
+    <h1 class="thesis-hero__title">
+      Goodnight Moon:<br>
+      <em>Early Literacy Screening</em>
+    </h1>
+
+    <p class="thesis-hero__subtitle">
+      Three deep learning models to automatically score children&rsquo;s literacy audio recordings,
+      enabling faster early intervention in education.
+    </p>
+
+    <div class="thesis-hero__meta">
+      <div class="thesis-hero__meta-item">
+        <span class="thesis-hero__meta-label">Competition Rank</span>
+        <span class="thesis-hero__meta-value">8th / 399 Teams</span>
+      </div>
+      <div class="thesis-hero__meta-item">
+        <span class="thesis-hero__meta-label">Period</span>
+        <span class="thesis-hero__meta-value">Oct 2024 &ndash; Mar 2025</span>
+      </div>
+      <div class="thesis-hero__meta-item">
+        <span class="thesis-hero__meta-label">Team</span>
+        <span class="thesis-hero__meta-value">Epoch V &middot; Delft, NL</span>
+      </div>
+      <div class="thesis-hero__meta-item">
+        <span class="thesis-hero__meta-label">Organizer</span>
+        <span class="thesis-hero__meta-value">Reach Every Reader (Harvard, MIT, FSU)</span>
+      </div>
+    </div>
+
+    <div class="thesis-hero__actions">
+      <a href="index.html#projects" class="btn btn--outline">
+        &larr; Portfolio
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       OVERVIEW
+       ============================================ -->
+  <section class="section section--alt" id="overview">
+    <div class="container">
+      <h2 class="section__title" data-aos="fade-up">Project Overview</h2>
+
+      <div class="two-col two-col--wide" data-aos="fade-up" data-aos-delay="100">
+        <div class="content-block">
+          <h3>The Problem</h3>
+          <p>
+            Early literacy skills
+            are among the strongest predictors of long-term academic success. Children who struggle
+            in the first years of schooling benefit enormously from timely intervention, but
+            standardized screening is time-consuming and dependent on trained educators.
+          </p>
+          <p>
+            The <em>Goodnight Moon</em> challenge, organized by <strong>Reach Every Reader</strong>
+            (a joint initiative of Harvard, MIT, and Florida State University), asks teams to build
+            ML models that automatically score children&rsquo;s early literacy assessments from
+            audio recordings.
+          </p>
+          <p>
+            Children&rsquo;s speech is significantly harder to process than adult speech: smaller
+            vocal tracts produce different acoustic patterns, and pronunciations are often
+            unpredictable. Standard ASR systems trained on adult data degrade substantially on
+            children&rsquo;s audio, making this a non-trivial ML problem.
+          </p>
+        </div>
+
+        <div class="content-block">
+          <h3>Our Strategy</h3>
+          <p>
+            The Epoch V team explored three
+            complementary approaches, each with a different inductive bias about how
+            to relate audio and text:
+          </p>
+          <ul>
+            <li><strong>Whisper Transformer:</strong> cross-attention fusion of audio context and expected text</li>
+            <li><strong>Contrastive Audio-Text model:</strong> independent encoding followed by cosine similarity scoring in a shared space</li>
+            <li><strong>Phonetic Transformer:</strong> symbolic phoneme-vs-text comparison using a shared discrete vocabulary</li>
+          </ul>
+          <div class="highlight-box">
+            <p>
+              <strong>Result: 8th place out of 399 competing teams</strong> in the international
+              Goodnight Moon challenge, helping demonstrate that deep learning can make automated
+              early literacy screening both accurate and scalable.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key stats -->
+      <div class="stats-row" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-card">
+          <div class="stat-card__value">8th</div>
+          <div class="stat-card__label">out of 399 teams<br>worldwide</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__value">3</div>
+          <div class="stat-card__label">complementary<br>model architectures</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__value">KG–3</div>
+          <div class="stat-card__label">school grades covered<br>(Kindergarten to 3rd)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       MODELS
+       ============================================ -->
+  <section class="section" id="models">
+    <div class="container">
+      <h2 class="section__title" data-aos="fade-up">Model Architectures</h2>
+
+      <!-- MODEL 1: Whisper Transformer -->
+      <div class="detail-section" data-aos="fade-up" data-aos-delay="100">
+        <div class="detail-section__header">
+          <span class="detail-section__badge">01</span>
+          <h3 class="detail-section__title">Whisper Transformer</h3>
+        </div>
+
+        <div class="model-card">
+          <p>
+            The primary model takes two inputs: the <strong>expected text</strong> of the literacy
+            task (encoded at the character level, enriched with grade and task-type tokens) and the
+            <strong>audio context</strong> extracted offline via the Whisper-base encoder;
+            a powerful speech foundation model that produces rich acoustic representations without
+            being fine-tuned.
+          </p>
+          <p>
+            The architecture follows an interleaved self-attention / cross-attention pattern
+            (<strong>S-C-S-C</strong>). This design
+            progressively integrates acoustic information into the text representation at each depth
+            level, rather than fusing only at the end. A learnable <strong>CLS token</strong> aggregates
+            the full sequence into a single vector, which is passed through a LayerNorm&nbsp;+&nbsp;MLP
+            head to produce a continuous score in [0,&nbsp;1].
+          </p>
+
+          <p><strong>Training techniques:</strong></p>
+          <ul>
+            <li>
+              <strong>Mixup augmentation at embedding level:</strong> because text tokens are discrete
+              indices, Mixup is applied <em>after</em> the embedding layer, interpolating both text
+              and audio representations together with their labels. This creates soft targets and acts
+              as a strong regularizer, critical for small datasets.
+            </li>
+            <li>
+              <strong>BCELoss (Binary Cross-Entropy):</strong> naturally handles the continuous soft
+              targets produced by Mixup, treating the scoring task as a probabilistic regression.
+            </li>
+            <li>
+              <strong>Linear warmup + cosine decay schedule:</strong> the learning rate ramps up
+              gently over the first portion of training, then decays following a cosine curve,
+              avoiding early instabilities and ensuring a smooth convergence.
+            </li>
+            <li>
+              <strong>Bayesian hyperparameter optimization</strong> via Weights &amp; Biases sweeps,
+              covering learning rate, weight decay, dropout, EMA decay, batch size, and Mixup
+              alpha simultaneously.
+            </li>
+          </ul>
+
+          <div class="technique-pills">
+            <span class="technique-pill">Whisper Encoder</span>
+            <span class="technique-pill">Cross-Attention (S-C-S-C)</span>
+            <span class="technique-pill">CLS Token</span>
+            <span class="technique-pill">Mixup Augmentation</span>
+            <span class="technique-pill">BCELoss</span>
+            <span class="technique-pill">EMA</span>
+            <span class="technique-pill">Cosine Decay</span>
+            <span class="technique-pill">Bayesian Search (W&amp;B)</span>
+          </div>
+        </div>
+
+        <!-- Image: model architecture -->
+        <div style="margin-top:2rem; border-radius:12px; overflow:hidden; border:1px solid #ECECEC; background:#E8E8E8;">
+          <img src="placeholder_epochv_arch.jpg" alt="Whisper Transformer model architecture diagram" style="width:100%;display:block;object-fit:contain;max-height:420px;padding:1.5rem;background:#FAFAFA;">
+          <div style="padding:0.75rem 1.25rem;font-size:0.78rem;color:#888;font-weight:500;background:#FAFAFA;border-top:1px solid #ECECEC;">
+            Whisper Transformer architecture — interleaved self/cross-attention with CLS token aggregation
+          </div>
+        </div>
+      </div>
+
+      <!-- MODEL 2: Contrastive Audio-Text -->
+      <div class="detail-section" data-aos="fade-up" data-aos-delay="100">
+        <div class="detail-section__header">
+          <span class="detail-section__badge">02</span>
+          <h3 class="detail-section__title">Contrastive Audio-Text Model</h3>
+        </div>
+
+        <div class="model-card">
+          <p>
+            Instead of fusing audio and text through cross-attention, this model takes a fundamentally
+            different approach: encode each modality <strong>independently</strong> and then measure
+            their similarity in a shared embedding space. The intuition is direct: if a child
+            read the text correctly, the audio embedding and the text embedding should be <em>close</em>
+            to each other.
+          </p>
+
+          <p><strong>Architecture:</strong></p>
+          <ul>
+            <li>
+              <strong>Audio branch:</strong> pre-computed <strong>Wav2Vec2</strong> embeddings
+              (a self-supervised speech foundation model) are processed by self-attention layers
+              with a CLS token, then projected into a shared 256-dimensional space.
+            </li>
+            <li>
+              <strong>Text branch:</strong> <strong>FastText</strong> word embeddings are
+              independently processed through self-attention layers with a CLS token, then
+              similarly projected into the shared 256-dimensional space.
+            </li>
+            <li>
+              <strong>Cosine similarity scoring:</strong> the final score is the cosine similarity
+              between the audio and text vectors, normalized to [0,&thinsp;1]. This is scale-invariant
+              and measures directional alignment, exactly what we care about when comparing
+              pronunciation to expected text.
+            </li>
+          </ul>
+
+          <p>
+            This approach is more interpretable than a black-box regression: a high score means
+            the audio representation genuinely aligns with the textual expectation in the shared space.
+            Trained with <strong>BCELoss</strong>; hyperparameters optimized via Bayesian
+            Weights &amp; Biases sweeps.
+          </p>
+
+          <div class="technique-pills">
+            <span class="technique-pill">Wav2Vec2</span>
+            <span class="technique-pill">FastText</span>
+            <span class="technique-pill">Dual-Branch Architecture</span>
+            <span class="technique-pill">Self-Attention</span>
+            <span class="technique-pill">Cosine Similarity</span>
+            <span class="technique-pill">BCELoss</span>
+            <span class="technique-pill">Bayesian Search (W&amp;B)</span>
+          </div>
+        </div>
+
+        <!-- Image: results / contrastive model -->
+        <div style="margin-top:2rem; border-radius:12px; overflow:hidden; border:1px solid #ECECEC; background:#E8E8E8;">
+          <img src="placeholder_model2_arch.jpg" alt="Archtecture Contrastive model" style="width:100%;display:block;object-fit:contain;max-height:420px;padding:1.5rem;background:#FAFAFA;">
+          <div style="padding:0.75rem 1.25rem;font-size:0.78rem;color:#888;font-weight:500;background:#FAFAFA;border-top:1px solid #ECECEC;">
+            Contrastive model: dual-branch encoding with cosine similarity scoring in shared space
+          </div>
+        </div>
+      </div>
+
+      <!-- MODEL 3: Phonetic Transformer -->
+      <div class="detail-section" data-aos="fade-up" data-aos-delay="100">
+        <div class="detail-section__header">
+          <span class="detail-section__badge">03</span>
+          <h3 class="detail-section__title">Phonetic Transformer</h3>
+        </div>
+
+        <div class="model-card">
+          <p>
+            A linguistically motivated variant that replaces the continuous floating-point Whisper
+            audio embeddings with <strong>discrete phoneme token sequences</strong>, the phonetic
+            transcription of what the child actually said. This makes the comparison purely symbolic:
+            expected text characters vs. actual phoneme tokens, both in the same discrete space.
+          </p>
+
+          <p><strong>Key design choices:</strong></p>
+          <ul>
+            <li>
+              <strong>Shared embedding space:</strong> a single embedding layer covers both the
+              alphabetic vocabulary (expected text: letters, grade tokens, task tokens) and the
+              phonetic vocabulary (phoneme symbols). This allows the model to learn relationships
+              between alphabetic and phonemic representations in a unified space.
+            </li>
+            <li>
+              <strong>Interleaved attention (S-C-S):</strong> similar cross-attention fusion
+              structure as the Whisper Transformer, adapted for the smaller, more structured
+              phonemic input.
+            </li>
+            <li>
+              <strong>Deeper MLP head:</strong> a three-layer projection compensates for the
+              reduced embedding dimensionality, adding more non-linear capacity before the final
+              score output.
+            </li>
+            <li>
+              <strong>BCELoss + cosine annealing schedule:</strong> the learning rate decays
+              smoothly following a cosine curve over the full training run, without early stopping,
+              allowing the model to fully converge on the structured discrete input.
+            </li>
+          </ul>
+
+          <p>
+            Compared to the Whisper Transformer, this model is more interpretable: the gap between
+            phoneme sequence and expected text directly reflects articulation errors. It is less
+            dependent on a large pre-trained speech encoder, but relies on an accurate phoneme
+            transcription step.
+          </p>
+
+          <div class="technique-pills">
+            <span class="technique-pill">Phoneme Tokenization</span>
+            <span class="technique-pill">Shared Embedding</span>
+            <span class="technique-pill">Cross-Attention (S-C-S)</span>
+            <span class="technique-pill">CLS Token</span>
+            <span class="technique-pill">BCELoss</span>
+            <span class="technique-pill">Cosine Annealing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison table -->
+      <div data-aos="fade-up" data-aos-delay="100" style="margin-top:1rem;">
+        <h3 style="font-size:1.2rem;font-weight:700;color:#1A1A1A;letter-spacing:-0.02em;margin-bottom:1.25rem;">Model Comparison</h3>
+        <div style="overflow-x:auto;">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Aspect</th>
+                <th>Whisper Transformer</th>
+                <th>Contrastive Model</th>
+                <th>Phonetic Transformer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Audio representation</td>
+                <td>Whisper encoder embeddings</td>
+                <td>Wav2Vec2 embeddings</td>
+                <td>Discrete phoneme tokens</td>
+              </tr>
+              <tr>
+                <td>Text representation</td>
+                <td>Character-level tokens</td>
+                <td>FastText word embeddings</td>
+                <td>Character-level tokens</td>
+              </tr>
+              <tr>
+                <td>Fusion strategy</td>
+                <td>Cross-attention (S-C-S-C)</td>
+                <td>Cosine similarity at end</td>
+                <td>Cross-attention (S-C-S)</td>
+              </tr>
+              <tr>
+                <td>Scoring mechanism</td>
+                <td>MLP regression head</td>
+                <td>Cosine similarity</td>
+                <td>MLP regression head</td>
+              </tr>
+              <tr>
+                <td>Training regularization</td>
+                <td>Mixup + EMA + Dropout</td>
+                <td>Dropout</td>
+                <td>Dropout</td>
+              </tr>
+              <tr>
+                <td>Loss function</td>
+                <td>BCELoss (soft labels)</td>
+                <td>BCELoss</td>
+                <td>BCELoss</td>
+              </tr>
+              <tr>
+                <td>LR schedule</td>
+                <td>Warmup + Cosine decay</td>
+                <td>None</td>
+                <td>Cosine annealing</td>
+              </tr>
+              <tr>
+                <td>HP optimization</td>
+                <td>Bayesian (W&amp;B sweeps)</td>
+                <td>Bayesian (W&amp;B sweeps)</td>
+                <td>Manual</td>
+              </tr>
+              <tr>
+                <td>Interpretability</td>
+                <td>Moderate</td>
+                <td>High (similarity score)</td>
+                <td>High (symbolic)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       RESULTS
+       ============================================ -->
+  <section class="section section--alt" id="results">
+    <div class="container">
+      <h2 class="section__title" data-aos="fade-up">Results</h2>
+
+      <div class="two-col" data-aos="fade-up" data-aos-delay="100">
+        <div class="content-block">
+          <h3>Competition Outcome</h3>
+          <p>
+            The Epoch V team ranked <strong>8th out of 399 competing teams worldwide</strong>,
+            placing in the top 2% of all submissions. The challenge was organized by
+            <em>Reach Every Reader</em>, a research initiative spanning Harvard, MIT, and
+            Florida State University, with the goal of making automated early literacy
+            screening accessible at scale.
+          </p>
+          <p>
+            The assessment tasks spanned a range of early literacy skills across four school grades
+            (Kindergarten through 3rd grade): phoneme deletion, sentence repetition, phoneme blending,
+            and nonword repetition. Models were evaluated on their ability to assign correct scores
+            to children&rsquo;s audio responses without access to human-labeled transcriptions at
+            inference time.
+          </p>
+        </div>
+
+        <div class="content-block">
+          <h3>Impact</h3>
+          <p>
+            Automated literacy screening has the potential to dramatically reduce the time and
+            cost of large-scale early assessment programs. Instead of requiring one-on-one sessions
+            with trained educators, ML-based scoring could allow schools to screen entire classrooms
+            efficiently and flag children who need additional support earlier.
+          </p>
+          <p>
+            Children who receive targeted literacy intervention in the first years of schooling show
+            significantly better long-term outcomes. The Goodnight Moon challenge represents a
+            concrete step toward making such screening equitable and widely available.
+          </p>
+          <div class="highlight-box">
+            <p>
+              <strong>Epoch V</strong> is TU Delft&rsquo;s Machine Learning student team. This
+              project was carried out during the Erasmus exchange at TU Delft
+              (Oct&nbsp;2024&nbsp;&ndash;&nbsp;Mar&nbsp;2025).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       FOOTER / CONTACT
+       ============================================ -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <h2 class="section__title section__title--light" data-aos="fade-up">Contact</h2>
+
+      <div class="footer__content" data-aos="fade-up" data-aos-delay="200">
+        <p class="footer__text">
+          Interested in working together or just want to chat? Drop me a line.
+        </p>
+
+        <div class="footer__links">
+          <a href="mailto:gabrielecasli@gmail.com" class="footer__link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            gabrielecasli@gmail.com
+          </a>
+
+          <a href="https://www.linkedin.com/in/gabriele-caslini-57482b245" target="_blank" rel="noopener noreferrer" class="footer__link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+
+          <a href="index.html" class="footer__link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Portfolio
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; 2026 Gabriele Caslini. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- AOS Library -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- Main Script -->
+  <script src="script.js"></script>
+</body>
+</html>
